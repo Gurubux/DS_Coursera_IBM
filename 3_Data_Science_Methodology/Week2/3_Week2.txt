@@ -1,34 +1,310 @@
-FROM UNDERSTANDING TO PREPARATION AND FROM MODELING TO EVALUATION
+@FROM UNDERSTANDING TO PREPARATION AND FROM MODELING TO EVALUATION
+------------------------------------------------------------------------------------------------
+------------------------------------------------------------------------------------------------
+@FROM UNDERSTANDING TO PREPARATION
 ------------------------------------------------------------------------------------------------
 Data Understanding
 
 
 
 ------------------------------------------------------------------------------------------------
-Data Preparation - Concepts
+DATA PREPARATION - CONCEPTS
+Most time Consuming
+Feature Engineering
+
+
+------------------------------------------------------------------------------------------------
+DATA PREPARATION - CASE STUDY
+Aggregation
+The Data Preparation stage is a very iterative and complicated stage that "CAN be accelerated through automation."
+
+------------------------------------------------------------------------------------------------
+FROM UNDERSTANDING TO PREPARATION
+
+LAB
+\Data Understanding
+So our dataset consists of 57,691 recipes. Each row represents a recipe, and for each recipe, the corresponding cuisine is documented as well as whether 384 ingredients exist in the recipe or not, beginning with almond and ending with zucchini.
+We know that a basic sushi recipe includes the ingredients:
+	- rice
+	- soy sauce
+	- wasabi
+	- some fish/vegetables
+
+Let`s check that these ingredients exist in our dataframe:
+ingredients = list(recipes.columns.values)
+
+print([match.group(0) for ingredient in ingredients for match in [(re.compile(".*(rice).*")).search(ingredient)] if match])
+print([match.group(0) for ingredient in ingredients for match in [(re.compile(".*(wasabi).*")).search(ingredient)] if match])
+print([match.group(0) for ingredient in ingredients for match in [(re.compile(".*(soy).*")).search(ingredient)] if match])
+>>>
+['brown_rice', 'licorice', 'rice']
+['wasabi']
+['soy_sauce', 'soybean', 'soybean_oil']
+
+rice exists as rice.
+wasabi exists as wasabi.
+soy exists as soy_sauce.
+'So maybe if a recipe contains all three ingredients: rice, wasabi, and soy_sauce, then we can confidently say that the recipe is a "Japanese cuisine"! Let`s keep this in mind!'
+
+\Data Preparation
+In this section, we will prepare data for the next stage in the data science methodology, which is modeling. This stage involves exploring the data further and making sure that it is in the right format for the machine learning algorithm that we selected in the analytic approach stage, which is decision trees.
+
+By looking at the above table, we can make the following observations:
+	- Cuisine column is labeled as Country, which is inaccurate.
+		column_names = recipes.columns.values
+		column_names[0] = "cuisine"
+		recipes.columns = column_names
+
+	- Cuisine names are not consistent as not all of them start with an uppercase first letter.
+		recipes["cuisine"] = recipes["cuisine"].str.lower()
+
+	- Some cuisines are duplicated as variation of the country name, such as Vietnam and Vietnamese.
+		recipes.loc[recipes["cuisine"] == "austria", "cuisine"] = "austrian"
+		recipes.loc[recipes["cuisine"] == "belgium", "cuisine"] = "belgian"
+		recipes.loc[recipes["cuisine"] == "china", "cuisine"] = "chinese"
+		recipes.loc[recipes["cuisine"] == "canada", "cuisine"] = "canadian"
+		recipes.loc[recipes["cuisine"] == "netherlands", "cuisine"] = "dutch"
+		recipes.loc[recipes["cuisine"] == "france", "cuisine"] = "french"
+		recipes.loc[recipes["cuisine"] == "germany", "cuisine"] = "german"
+		recipes.loc[recipes["cuisine"] == "india", "cuisine"] = "indian"
+		recipes.loc[recipes["cuisine"] == "indonesia", "cuisine"] = "indonesian"
+		recipes.loc[recipes["cuisine"] == "iran", "cuisine"] = "iranian"
+		recipes.loc[recipes["cuisine"] == "italy", "cuisine"] = "italian"
+		recipes.loc[recipes["cuisine"] == "japan", "cuisine"] = "japanese"
+		recipes.loc[recipes["cuisine"] == "israel", "cuisine"] = "jewish"
+		recipes.loc[recipes["cuisine"] == "korea", "cuisine"] = "korean"
+		recipes.loc[recipes["cuisine"] == "lebanon", "cuisine"] = "lebanese"
+		recipes.loc[recipes["cuisine"] == "malaysia", "cuisine"] = "malaysian"
+		recipes.loc[recipes["cuisine"] == "mexico", "cuisine"] = "mexican"
+		recipes.loc[recipes["cuisine"] == "pakistan", "cuisine"] = "pakistani"
+		recipes.loc[recipes["cuisine"] == "philippines", "cuisine"] = "philippine"
+		recipes.loc[recipes["cuisine"] == "scandinavia", "cuisine"] = "scandinavian"
+		recipes.loc[recipes["cuisine"] == "spain", "cuisine"] = "spanish_portuguese"
+		recipes.loc[recipes["cuisine"] == "portugal", "cuisine"] = "spanish_portuguese"
+		recipes.loc[recipes["cuisine"] == "switzerland", "cuisine"] = "swiss"
+		recipes.loc[recipes["cuisine"] == "thailand", "cuisine"] = "thai"
+		recipes.loc[recipes["cuisine"] == "turkey", "cuisine"] = "turkish"
+		recipes.loc[recipes["cuisine"] == "vietnam", "cuisine"] = "vietnamese"
+		recipes.loc[recipes["cuisine"] == "uk-and-ireland", "cuisine"] = "uk-and-irish"
+		recipes.loc[recipes["cuisine"] == "irish", "cuisine"] = "uk-and-irish"
+
+	- Some cuisines have very few recipes.
+		Remove cuisines with < 50 recipes.
+		
+		# get list of cuisines to keep
+		recipes_counts = recipes["cuisine"].value_counts()
+		cuisines_indices = recipes_counts > 50
+		cuisines_to_keep = list(np.array(recipes_counts.index.values)[np.array(cuisines_indices)])
+		rows_before = recipes.shape[0] # number of rows of original dataframe
+		print("Number of rows of original dataframe is {}.".format(rows_before))
+		
+		recipes = recipes.loc[recipes['cuisine'].isin(cuisines_to_keep)]
+		
+		rows_after = recipes.shape[0] # number of rows of processed dataframe
+		print("Number of rows of processed dataframe is {}.".format(rows_after))
+		
+		print("{} rows removed!".format(rows_before - rows_after))
+		>>>
+		Number of rows of original dataframe is 57691.
+		Number of rows of processed dataframe is 57403.
+		288 rows removed!
+
+Convert all Yes's to 1's and the No's to 0's
+	recipes = recipes.replace(to_replace="Yes", value=1)
+	recipes = recipes.replace(to_replace="No", value=0)
+
+Get the recipes that contain rice and soy and wasabi and seaweed.
+	check_recipes = recipes.loc[
+    	(recipes["rice"] == 1) &
+    	(recipes["soy_sauce"] == 1) &
+    	(recipes["wasabi"] == 1) &
+    	(recipes["seaweed"] == 1)
+	]
+
+check_recipes
+
+
+# sum each column
+ing = recipes.iloc[:, 1:].sum(axis=0)
+
+# define each column as a pandas series
+ingredient = pd.Series(ing.index.values, index = np.arange(len(ing)))
+count = pd.Series(list(ing), index = np.arange(len(ing)))
+
+# create the dataframe
+ing_df = pd.DataFrame(dict(ingredient = ingredient, count = count))
+ing_df = ing_df[["ingredient", "count"]]
+print(ing_df.to_string())
+
+ing_df.sort_values(["count"], ascending=False, inplace=True)
+ing_df.reset_index(inplace=True, drop=True)
+
+print(ing_df)
+>>>
+          ingredient  count
+0                 egg  21025
+1               wheat  20781
+2              butter  20719
+3               onion  18080
+4              garlic  17353
+5                milk  12870
+6       vegetable_oil  11105
+7               cream  10171
+8              tomato   9920
+9           olive_oil   9876
+
+THREE MOST POPULAR
+1. Egg with 21,025 occurrences. 
+2. Wheat with 20,781 occurrences. 
+3. Butter with 20,719 occurrences.
+
+
+cuisines = recipes.groupby("cuisine").mean()
+cuisines.head()
+		almond	angelica	anise	anise_seed	apple	apple_brandy	apricot	armagnac	.....	yogurt	zucchini
+cuisine	
+african	0.156522	0.000000	0.000000	0.000000	0.034783	0.000000	0.069565	0.0000	0.0	0.000000	.......	0.000000	0.034783
+american	0.040598	0.000025	0.003014	0.000573	0.052055	0.000623	0.011308	0.0001	.......	0.068219	0.016912	0.018630
+asian	0.007544	0.000000	0.000838	0.002515	0.012573	0.000000	0.005029	0.0000	0.0	0.000000	.......	0.010897	0.011735
+cajun_creole	0.000000	0.000000	0.000000	0.000000	0.006849	0.000000	0.000000	0.0000	.......	0.0342470.006849	0.000000
+
+For example:
+	- almond is present across 15.65% of all of the African recipes.
+	- butter is present across 38.11% of all of the Canadian recipes.
+
+==> Print out the profile for each cuisine by displaying the top four ingredients in each cuisine.
+num_ingredients = 4 # define number of top ingredients to print
+
+# define a function that prints the top ingredients for each cuisine
+def print_top_ingredients(row):
+    print(row.name.upper())
+    row_sorted = row.sort_values(ascending=False)*100
+    top_ingredients = list(row_sorted.index.values)[0:num_ingredients]
+    row_sorted = list(row_sorted)[0:num_ingredients]
+
+    for ind, ingredient in enumerate(top_ingredients):
+        print("%s (%d%%)" % (ingredient, row_sorted[ind]), end=' ')
+    print("\n")
+
+# apply function to cuisines dataframe
+create_cuisines_profiles = cuisines.apply(print_top_ingredients, axis=1)
+AFRICAN
+onion (53%) olive_oil (52%) garlic (49%) cumin (42%) 
+
+AMERICAN
+butter (41%) egg (40%) wheat (39%) onion (29%) 
+
+ASIAN
+soy_sauce (49%) ginger (48%) garlic (47%) rice (41%) 
+
+CAJUN_CREOLE
+onion (69%) cayenne (56%) garlic (48%) butter (36%) 
+
+CANADIAN
+wheat (39%) butter (38%) egg (35%) onion (34%) 
+
+CARIBBEAN
+onion (51%) garlic (50%) vegetable_oil (31%) black_pepper (31%) 
+
+CENTRAL_SOUTHAMERICAN
+garlic (56%) onion (54%) cayenne (51%) tomato (41%) 
+
+CHINESE
+soy_sauce (68%) ginger (53%) garlic (52%) scallion (48%) 
+
+EAST_ASIAN
+garlic (55%) soy_sauce (50%) scallion (49%) cayenne (47%) 
+
+EASTERN-EUROPE
+wheat (53%) egg (52%) butter (48%) onion (45%) 
+
+EASTERNEUROPEAN_RUSSIAN
+butter (60%) egg (50%) wheat (49%) onion (38%) 
+
+ENGLISH_SCOTTISH
+butter (67%) wheat (62%) egg (53%) cream (41%) 
+
+FRENCH
+butter (50%) egg (44%) wheat (37%) olive_oil (27%) 
+
+GERMAN
+wheat (64%) egg (60%) butter (47%) onion (34%) 
+
+GREEK
+olive_oil (76%) garlic (44%) onion (36%) lemon_juice (33%) 
+
+INDIAN
+cumin (60%) turmeric (50%) onion (49%) coriander (47%) 
+
+ITALIAN
+olive_oil (60%) garlic (52%) tomato (39%) onion (32%) 
+
+JAPANESE
+soy_sauce (56%) rice (44%) vinegar (36%) vegetable_oil (35%) 
+
+JEWISH
+egg (58%) wheat (49%) butter (31%) onion (30%) 
+
+KOREAN
+garlic (59%) scallion (52%) cayenne (51%) soy_sauce (49%) 
+
+MEDITERRANEAN
+olive_oil (79%) garlic (50%) onion (38%) tomato (34%) 
+
+MEXICAN
+cayenne (73%) onion (68%) garlic (62%) tomato (58%) 
+
+MIDDLEEASTERN
+olive_oil (60%) garlic (46%) wheat (37%) lemon_juice (35%) 
+
+MOROCCAN
+olive_oil (72%) cumin (54%) onion (49%) garlic (45%) 
+
+NORTH-AFRICAN
+onion (55%) olive_oil (50%) cumin (48%) garlic (46%) 
+
+SCANDINAVIAN
+butter (64%) wheat (57%) egg (52%) cream (28%) 
+
+SOUTH-AMERICA
+onion (42%) garlic (36%) egg (34%) milk (31%) 
+
+SOUTHERN_SOULFOOD
+butter (57%) wheat (48%) egg (41%) corn (29%) 
+
+SOUTHWESTERN
+cayenne (81%) garlic (62%) onion (61%) cilantro (51%) 
+
+SPANISH_PORTUGUESE
+olive_oil (57%) garlic (54%) onion (46%) bell_pepper (35%) 
+
+THAI
+garlic (59%) fish (52%) cayenne (47%) cilantro (41%) 
+
+UK-AND-IRISH
+butter (59%) wheat (58%) egg (48%) milk (33%) 
+
+VIETNAMESE
+fish (73%) garlic (72%) rice (49%) cayenne (43%) 
+
+WESTERN
+egg (51%) wheat (46%) butter (46%) black_pepper (36%) 
 
 
 
 ------------------------------------------------------------------------------------------------
-Correction
-
-
-
-------------------------------------------------------------------------------------------------
-Data Preparation - Case Study
-
-
-
-------------------------------------------------------------------------------------------------
-From Understanding to Preparation
-
-
-
+@FROM MODELING TO EVALUATION
 ------------------------------------------------------------------------------------------------
 Modeling - Concepts
+Predictive or Descriptive ?
+	An example of a descriptive model might examine things like: if a person did this, then they`re likely to prefer that. 
+	A predictive model tries to yield yes/no, or stop/go type outcomes. These models are based on the analytic approach that was taken, either statistically driven or machine learning driven.
 
+First, understand the question at hand. 
+Second, select an analytic approach or method to solve the problem, and 
+third, obtain, understand, prepare, and model the data. 
 
-
+The end goal is to move the data scientist to a point where a data model can be built to answer the question.
 ------------------------------------------------------------------------------------------------
 Modeling - Case Study
 
@@ -36,8 +312,17 @@ Modeling - Case Study
 
 ------------------------------------------------------------------------------------------------
 Evaluation
+MOdelling and Evaluation are done iteratively
 
+Diagnostic Measure phase
+Statistical Significance
 
+ROC - TPR vs FPR
+
+!conda install python-graphviz --yes
+import graphviz
+
+from sklearn.tree import export_graphviz
 
 ------------------------------------------------------------------------------------------------
 From Modeling to Evaluation

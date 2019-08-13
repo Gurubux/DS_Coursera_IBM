@@ -1,47 +1,97 @@
-FROM PROBLEM TO APPROACH AND FROM REQUIREMENTS TO COLLECTION
+@FROM PROBLEM TO APPROACH AND FROM REQUIREMENTS TO COLLECTION
+--------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------
+@FROM PROBLEM TO APPROACH
 --------------------------------------------------------------------------------------------
 Welcome
 
-
-
-
 --------------------------------------------------------------------------------------------
 Business Understanding
-
+Establishing a clearly defined question starts with understanding the goal of the person asking the question.
 
 
 
 --------------------------------------------------------------------------------------------
 Analytic Approach
-
+Types Of Quetions
 
 
 
 --------------------------------------------------------------------------------------------
 Lab: From Problem to Approach
+\Business Problem
+1. Why is the business understanding stage important?
+	It helps clarify the goal of the entity asking the question.
+​
+2. Looking at this diagram, we immediately spot two outstanding features of the data science methodology.(datascience_methodology_flowchart)
+	1. The flowchart is highly iterative.
+	2. The flowchart never ends. 
 
+3. Can we predict the cuisine of a given dish using the name of the dish only?
+	NO
 
+4.Q. For example, the following dish names were taken from the menu of a local restaurant in Toronto, Ontario in Canada.
+	1. Beast
+	2. 2 PM
+	3. 4 Minute
+	Are you able to tell the cuisine of these dishes?
+	NO
 
+5. What about by appearance only? Yes or No
+	No, especially when it comes to countries in close geographical proximity such as Scandinavian countries, or Asian countries.
 
+"At this point, we realize that automating the process of determining the cuisine of a given dish is not a straightforward problem as we need to come up with a way that is very robust to the many cuisines and their variations."
+
+6. What about determining the cuisine of a dish based on its ingredients?
+	Potentially yes, as there are specific ingredients unique to each cuisine.
+
+\Analytic Approach
+"So why are we interested in data science?"
+Once the business problem has been clearly stated, the data scientist can define the analytic approach to solve the problem. This step entails expressing the problem in the context of statistical and machine-learning techniques, so that the entity or stakeholders with the problem can identify the most suitable techniques for the desired outcome.
+
+7. Why is the analytic approach stage important?
+	Because it helps identify what type of patterns will be needed to address the question most effectively.
+
+Let`s explore a machine learning algorithm, decision trees, and see if it is the right technique to automate the process of identifying the cuisine of a given dish or recipe while simultaneously providing us with some insight on why a given recipe is believed to belong to a certain type of cuisine.
+This is a decision tree that a naive person might create manually. Starting at the top with all the recipes for all the cuisines in the world, if a recipe contains rice, then this decision tree would classify it as a Japanese cuisine. Otherwise, it would be classified as not a Japanese cuisine
+
+8. Is this a good decision tree? Yes or No, and why?
+	No, because a plethora of dishes from other cuisines contain rice. Therefore, using rice as the ingredient in the Decision node to split on is not a good choice.
+
+9. In order to build a very powerful decision tree for the recipe case study, let's take some time to learn more about decision trees.
+	- Decision trees are built using recursive partitioning to classify the data.
+	- When partitioning the data, decision trees use the most predictive feature (ingredient in this case) to split the data.
+	- Predictiveness is based on decrease in entropy - gain in information, or impurity.
+
+"I hope you agree that the above decision tree is a much better version than the previous one. Although we are still using Rice as the ingredient in the first decision node, recipes get divided into Asian Food and Non-Asian Food. Asian Food is then further divided into Japanese and Not Japanese based on the Wasabi ingredient. This process of splitting leaf nodes continues until each leaf node is pure, i.e., containing recipes belonging to only one cuisine."
+
+Accordingly, decision trees is a suitable technique or algorithm for our recipe case study.
+--------------------------------------------------------------------------------------------
+@FROM REQUIREMENTS TO COLLECTION
 --------------------------------------------------------------------------------------------
 Data Requirements
-
+Identifying the required data fulfills the data requirements stage of the data science methodology.
 
 
 
 --------------------------------------------------------------------------------------------
 Data Collection
-
+DBAs and programmers often work together to extract data From various sources, and then merge it. This allows For removing redundant data, making it available for the next stage of the methodology, which is data understanding. 
 
 
 
 --------------------------------------------------------------------------------------------
 From Requirements to Collection
-
-
+recipes.shape
+(57691, 384)
 
 
 
 --------------------------------------------------------------------------------------------
 Graded: From Problem to Approach
 Graded: From Requirements to Collection
+
+
+
+Yong-Yeol Ahn @yy
+Polong Lin @polonglin
