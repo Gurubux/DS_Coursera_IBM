@@ -1,0 +1,51 @@
+----------------------------------------------------------------------------------------
+1. Introducing Skills Network Labs
+Polong Lin
+@polonglin
+
+Skills Network Labs
+data analysis, 
+data visualization, 
+machine learning and 
+image recognition
+
+
+Currently, "APACHE`S ZEPPELIN" supports many interpreters such as Apache Spark, Python, JDBC, Markdown and Shell. 
+Apache Zeppelin provides built-in Apache Spark integration so you don`t need to build a separate module plugin or library for it. 
+ For data visualization, some basic charts are already included in Zeppelin allowing you to convert from data tables directly into visualizations without any code. Zeppelin also aggregates values and displays them in pivot charts, with simple drag and drop. 
+ You can easily create charts with multiple aggregated values including sum, count, average, minimum and maximum.
+ SCALA
+
+
+"RSTUDIO" IDE allows you to analyze data, take advantage of many statistical packages, create beautiful visualizations and Web applications. Like other IDEs, RStudio allows you to code in a console or a script editor as well as keep track of your variables and history. You can display your plots, manage your packages, and see help documentation for R. 
+	"Shiny"- Taking it a step further, with R Shiny library, you can make your visualizations interactive. Using Shiny, you can create all sorts of Web based interactive apps just using R code.
+
+"JUPYTER NOTEBOOKS" are "interactive" documents that enable you to write and execute code in chunks (as opposed to all-or-none), add explanatory text, write mathematical equations. They are popular in data science as you can most of the data science work (importing data, cleaning data, analyzing data, visualizing data, machine learning) and you can also share the notebooks to collaborate with others.
+----------------------------------------------------------------------------------------
+"APACHE`S ZEPPELIN"
+Zeppelin notebooks, one of the open-source, web-based tools in Data Scientist Workbench. Zeppelin notebooks are multipurpose notebooks that can handle all your analytics needs, from data ingestion, data discovery, data analytics, to data visualization and collaboration. The Zeppelin interpreter concept allows any language or data processing backend to be plugged into Zeppelin. Currently Apache Zeppelin supports many interpreters such as Apache Spark, Python, JDBC, Markdown, and Shell.
+Apache Zeppelin, in particular, provides built-in Apache Spark integration. You don`t need to build a separate module, plug-in, or library for it. Apache Zeppelin with Spark integration provides a number of great features including automatic Spark context and SQL context injection. Runtime JAR dependency loading from local file system or Maven repository, as well as cancelling job and progress display.
+For further information about Apache Spark in Apache Zeppelin, take a look at the Apache Spark in Zeppelin Notebooks video. For data visualization, here are some basic charts already included in Apache Zeppelin. Visualizations are not limited to Spark SQL query. In fact, any output from any language backend can be recognized and visualized. For pivot charts, Apache Zeppelin aggregates values and displays them in a pivot chart with simple drag and drop. You can easily create charts with multiple aggregated values including sum, count, average, minimum, and maximum. For dynamic forms, Apache Zeppelin can dynamically create some input forms for your notebook.
+Apache Zeppelin is Apache 2.0 licensed software. Zeppelin notebooks are 100% opensource, so please check out the source repository and how to contribute. In fact, Apache Zeppelin has a very active development community. Please feel free to join our mailing list, and report issues if you`d like on Jira issue tracker
+"Zeppelin for Scala"
+	Zeppelin tutorial For Scala, which reads data From a comma separated,.csv file, and uses Spark to convert it into a Spark DataFrame. Then we query data using a SQL command and visualize it. To get started, just click the Zeppelin Notebook button on the main page. The Zeppelin welcome page opens. Then, click the Tutorial For Scala link. This launches the Notebook that we`ll run through. The first part of the tutorial describes the "Interpreter Binding" settings, namely for Spark, %spark is the default, md, angular, and sh. These are the kernels or interpreters that you select to be available in your Notebook. As a user, you can simply click on Save. 
+	The first step in the tutorial downloads the bank.csv file. You`ll need to import the packages that are needed for this tutorial. 
+	The second step converts the.csv file to RDD by running the script. 
+	The third step cleans the data using map and filter, which basically does three things. First, it creates an RDD of tuples from the original bank text. Second, it creates the schema or class represented to define the name and type of column. And third, it applies the schema to RDD. 
+	The fourth step creates the DataFrame using the toDF function. A DataFrame is a distributed collection of data organized into named columns. It is conceptually equivalent to a table in a relational database, or a DataFrame in RPython, but with richer optimizations under the hood. 
+	The fifth step registers the DataFrame as a temporary table. 
+	The sixth step retrieves the data. Now, the bank table can be easily queried with SQL commands. 
+	And finally, the seventh step visualizes the data. Some basic charts are already included in Zeppelin. Please, feel free to create your own Notebook in the Notebook menu. Getting some practice is always helpful. 
+-You can use multiple programming languages in the same Zeppelin notebook.
+Correct! You probably noticed that in this notebook shown in the video, the Scala language and SQL language are used in different cells, but were operating on the same data. This is one of the key differences between Jupyter and Zeppelin notebooks; in Jupyter notebooks, you can only use one language at a time.
+
+- Zeppelin notebooks are JSON files.
+
+"RSTUDIO"
+----------------------------------------------------------------------------------------
+
+
+
+
+
+----------------------------------------------------------------------------------------

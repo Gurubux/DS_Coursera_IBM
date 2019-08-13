@@ -1,0 +1,6 @@
+What is IBM Watson Studio (Data Science Experience) 
+DSX
+ Jupyter Notebooks and RStudio are both available on IBM Data Science Experience.
+
+ Peer-graded Assignment
+ https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet
