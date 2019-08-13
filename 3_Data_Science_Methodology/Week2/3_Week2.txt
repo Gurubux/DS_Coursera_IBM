@@ -319,17 +319,99 @@ Statistical Significance
 
 ROC - TPR vs FPR
 
+
+
+------------------------------------------------------------------------------------------------
+From Modeling to Evaluation
+
 !conda install python-graphviz --yes
 import graphviz
 
 from sklearn.tree import export_graphviz
 
-------------------------------------------------------------------------------------------------
-From Modeling to Evaluation
+
+# select subset of cuisines
+asian_indian_recipes = recipes[recipes.cuisine.isin(["korean", "japanese", "chinese", "thai", "indian"])]
+cuisines = asian_indian_recipes["cuisine"]
+ingredients = asian_indian_recipes.iloc[:,1:]
+
+bamboo_tree = tree.DecisionTreeClassifier(max_depth=3)
+bamboo_tree.fit(ingredients, cuisines)
+
+print("Decision tree model saved to bamboo_tree!")
+
+export_graphviz(bamboo_tree,
+                feature_names=list(ingredients.columns.values),
+                out_file="bamboo_tree.dot",
+                class_names=np.unique(cuisines),
+                filled=True,
+                node_ids=True,
+                special_characters=True,
+                impurity=False,
+                label="all",
+                leaves_parallel=False)
+
+with open("bamboo_tree.dot") as bamboo_tree_image:
+    bamboo_tree_graph = bamboo_tree_image.read()
+graphviz.Source(bamboo_tree_graph)
 
 
+The decision tree learned:
+	- If a recipe contains cumin and fish and no yoghurt, then it is most likely a Thai recipe.
+	- If a recipe contains cumin but no fish and no soy_sauce, then it is most likely an Indian recipe.
+
+
+
+\EVALUATION
+test_cuisines = np.unique(bamboo_test_cuisines)
+bamboo_confusion_matrix = confusion_matrix(bamboo_test_cuisines, bamboo_pred_cuisines, test_cuisines)
+title = 'Bamboo Confusion Matrix'
+cmap = plt.cm.Blues
+
+plt.figure(figsize=(8, 6))
+bamboo_confusion_matrix = (
+    bamboo_confusion_matrix.astype('float') / bamboo_confusion_matrix.sum(axis=1)[:, np.newaxis]
+    ) * 100
+
+plt.imshow(bamboo_confusion_matrix, interpolation='nearest', cmap=cmap)
+plt.title(title)
+plt.colorbar()
+tick_marks = np.arange(len(test_cuisines))
+plt.xticks(tick_marks, test_cuisines)
+plt.yticks(tick_marks, test_cuisines)
+
+fmt = '.2f'
+thresh = bamboo_confusion_matrix.max() / 2.
+for i, j in itertools.product(range(bamboo_confusion_matrix.shape[0]), range(bamboo_confusion_matrix.shape[1])):
+    plt.text(j, i, format(bamboo_confusion_matrix[i, j], fmt),
+             horizontalalignment="center",
+             color="white" if bamboo_confusion_matrix[i, j] > thresh else "black")
+
+plt.tight_layout()
+plt.ylabel('True label')
+plt.xlabel('Predicted label')
+
+plt.show()
+array([[50.        ,  3.33333333,  6.66666667, 36.66666667,  3.33333333],
+       [ 0.        , 80.        ,  0.        , 13.33333333,  6.66666667],
+       [33.33333333,  0.        , 26.66666667, 20.        , 20.        ],
+       [ 6.66666667,  3.33333333,  3.33333333, 86.66666667,  0.        ],
+       [ 6.66666667, 13.33333333,  3.33333333, 13.33333333, 63.33333333]])
+
+
+
+The rows represent the actual cuisines from the dataset and the columns represent the predicted ones. Each row should sum to 100%. According to this confusion matrix, we make the following observations:
+
+Using the first row in the confusion matrix, 60% of the Chinese recipes in bamboo_test were correctly classified by our decision tree whereas 37% of the Chinese recipes were misclassified as Korean and 3% were misclassified as Indian.
+
+Using the Indian row, 77% of the Indian recipes in bamboo_test were correctly classified by our decision tree and 3% of the Indian recipes were misclassified as Chinese and 13% were misclassified as Korean and 7% were misclassified as Thai.
 
 
 ------------------------------------------------------------------------------------------------
 Graded: From Understanding to Preparation
 Graded: From Modeling to Evaluation
+
+ to predict how likely a credit card request will approve.
+ Credit analysis involves the measure to investigate the probability of a third-party to pay back the loan to the bank on time and predict its default characteristic. 
+ Analysis focus on recognizing, assessing and reducing the financial or other risks that could lead to loss involved in the transaction.
+  Analysis focus on recognizing, assessing and reducing the financial or other risks that could lead to loss involved in the transaction.

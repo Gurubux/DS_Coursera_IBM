@@ -13,3 +13,5 @@ Data Science : It is the art and science applied on data to create insights that
 Data scientist : Is the one who is able apply skills including few or all of the following namely math, statistics, programming, design or a domain expertise and most importantly the curiosity to know what, how and why/why not of a problem, is what makes a successful Data scientist.
 
 @dianac_zd @polonglin @regionomics @RafaelBlSilva @luisotsm @normwhite @ravahuja @aklson_DS
+@aklson_DS @polonglin
+@YourAcclaim
