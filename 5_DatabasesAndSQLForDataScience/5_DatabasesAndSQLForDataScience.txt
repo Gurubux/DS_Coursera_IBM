@@ -1,0 +1,132 @@
+\Week 1 - Introduction to Databases and Basic SQL
+"Video: Welcome to SQL for Data Science"
+"Video: Introduction to Databases"
+A relational database stores data in a tabular format - i.e. in rows and columns. But not all types of databases use the tabular format.
+ 5 basic SQL queries in further detail in subsequent lessons
+CREATE OR UO
+INSERT
+SELECT
+UPDATE
+DELETE
+
+"Video: How to create a Database instance on Cloud?"
+How to create a service instance on an IBM Db2 Warehouse on Cloud database.
+A few examples of cloud SQL databases are IBM Db2 Warehouse on Cloud, composed for PostgreSQL, Oracle Database Cloud, Microsoft Azure Cloud, SQL Database, Amazon Relational Database Services, which can run in the Cloud, either in a virtual machine or as a service depending on the vendor.
+The Db2 Warehouse database can be provisioned on IBM Cloud and for AWS.
+"Reading: Hands-on LAB: Provision a Cloud hosted Database instance"
+"LTI Item: OPTIONAL: Obtain and Apply IBM Cloud Promo Code"
+"Video: CREATE Table Statement"
+Recall that DDL stands for Data Definition Language. A create table statement is an example of DDL because it is used for defining structure of the database objects.
+"Reading: Examples to CREATE and DROP tables"
+create table TABLENAME (
+    COLUMN1 datatype,
+    COLUMN2 datatype,
+    COLUMN3, datatype,
+        ...
+    ) ;
+create table TEST (
+    ID integer,
+    NAME varchar(30)
+    );
+create table COUNTRY (
+    ID int,
+    CCODE char(2),
+    NAME varchar(60)
+    );
+create table COUNTRY (
+    ID int NOT NULL,
+    CCODE char(2),
+    NAME varchar(60),
+    PRIMARY KEY (ID)
+    );
+#We are using ID as a Primary Key and the database does not allow Primary Keys to have NULL values. A Primary Key is a unique identifier in a table, and using Primary Keys can help speed up your queries significantly.
+
+#If the table you are trying to create already exists in the database, you will get an error indicating "table XXX.YYY already exists". 
+drop table COUNTRY;
+create table COUNTRY (
+    ID integer PRIMARY KEY NOT NULL,
+    CCODE char(2),
+    NAME varchar(60)
+    );
+#WARNING: before dropping a table ensure that it doesn't contain important data that can't be recovered easily.
+#Note that if the table does not already exist and you try to drop it, you will see an error like "XXX.YYY is an undefined name". You can ignore this error as long as the subsequent CREATE statement executed successfully.
+"Video: SELECT Statement"
+The output of a select statement is called the Result Set or a Result Table.
+"Reading: SELECT statement examples"
+select COLUMN1, COLUMN2, ... from TABLE1 ;
+select ID, NAME from COUNTRY ;
+select * from COUNTRY ;
+select * from COUNTRY where ID < 5 ;
+select * from COUNTRY where CCODE = 'CA'; 
+"Video: COUNT, DISTINCT, LIMIT"
+"Video: INSERT Statement"
+You can insert 1 row, 2 rows, or more than two rows with a single INSERT statement.
+"Video: UPDATE and DELETE Statements"
+Be careful and specify a where clause if you intend to update just specific rows, otherwise all rows will be updated.
+"Reading: Hands-on LAB: Composing and Running basic SQL queries"
+"Reading: About this Optional lesson"
+"Video: Information and Data Models"
+"Video: Types of Relationships"
+"Video: Mapping Entities to Tables"
+"Video: Relational Model Concepts"
+Degree : If a table has 4 columns and 8 rows then its Degree is 4.
+Cardinality refers to the number of Tuples (or rows) in a relational instance (table). So if a table has 8 rows, then its Cardinality should be 8 and not 4. The question asked which statement is incorrect, so this is the correct reponse.
+"Reading: Additional Reading"
+"Practice Quiz: Practice Quiz: Review of Relational Database Concepts"
+"Practice Quiz: Optional Not Graded Quiz on Relational Concepts"
+"
+""Graded: Databases"
+"Graded: Basic SQL"
+"-----------------------------------------------------------------------------------------------"
+"\Week 2 - Advanced SQL"
+"Video: Using String Patterns, Ranges"
+"Video: Sorting Result Sets"
+"Video: Grouping Result Sets"
+"Reading: Hands-on LAB: String Patterns, Sorting & Grouping"
+"Video: Built-in Database Functions"
+"Video: Date and Time Built-in Functions"
+"Reading: Hands-on Lab: Built-in functions"
+"Video: Sub-Queries and Nested Selects"
+"Video: Working with Multiple Tables"
+"Reading: Hands-on Lab: Sub-queries, Multiple Tables"
+"Reading: About this Optional lesson"
+"Video: Relational Model Constraints"
+"Video: Relational Model Constraints - Advanced"
+"Reading: Additional Information on Keys and Constraints"
+"Practice Quiz: Practice Quiz: Review of Database Constraints"
+"Practice Quiz: Optional Not Graded Quiz on Constraints"
+"
+""Graded: String Patterns, Ranges, Sorting and Grouping"
+"Graded: Functions, Sub-Queries, Multiple Tables"
+"
+""-----------------------------------------------------------------------------------------------"
+"\Week 3 - Accessing Databases using Python"
+"Video: How to access databases using Python?"
+"Video: Writing code using DB-API"
+"Video: Connecting to a database using ibm_db API"
+"Reading: Lab 0: Create Database Credentials"
+"LTI Item: Hands-on LAB 1: Connecting to a database instance"
+"Video: Creating tables, loading data and querying data"
+"LTI Item: Hands-on LAB 2: Creating tables, inserting and querying Data"
+"LTI Item: Hands-on Tutorial: Accessing databases with SQL magic"
+"Video: Analyzing data with Python"
+"LTI Item: Hands-on LAB 3: Analyzing a real world data set"
+"Reading: About this Optional Section"
+"Video: Join Overview"
+"Video: Inner Join"
+"Video: Left Outer Join"
+"Video: Right Outer Join"
+"Video: Full Outer Join"
+"Reading: Hands-on LAB: JOINs"
+"Practice Quiz: JOIN operations"
+"
+""Graded: Database access from Python"
+"-----------------------------------------------------------------------------------------------"
+"\Week 4: Course Assignment"
+"Video: Working with Real World Datasets"
+"Video: Getting Table and Column Details"
+"LTI Item: Hands-on Lab 1: Practice Querying real world datasets"
+"LTI Item: Jupyter notebook with problems for Peer Reviewed Assignment"
+"Ungraded Plugin: 1min Survey and Feedback"
+"
+""Graded: Peer Reviewed Assignment"
