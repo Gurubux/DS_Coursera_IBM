@@ -1,0 +1,75 @@
+Lab: Analyzing a real world data-set with SQL and Python
+--------------------------------------------------------------------------------------------	
+SELECTED SOCIOECONOMIC INDICATORS IN CHICAGO
+The city of Chicago released a dataset of socioeconomic data to the Chicago City Portal. This dataset contains a selection of six socioeconomic indicators of public health significance and a “hardship index,” for each Chicago community area, for the years 2008 – 2012.
+Scores on the hardship index can range from 1 to 100, with a higher index number representing a greater level of hardship.
+In this Lab, we`ll take a look at the variables in the socioeconomic indicators dataset and do some basic analysis with Python.
+--------------------------------------------------------------------------------------------
+\Connect to the database
+%load_ext sql
+%sql db2://zbg05241:05thvgc0-1t0ftsk@dashdb-txn-sbox-yp-lon02-02.services.eu-gb.bluemix.net:50000/BLUDB
+
+\Store the dataset in a Table
+#In many cases the dataset to be analyzed is available as a .CSV (comma separated values) file, perhaps on the internet. To analyze the data using SQL, it first needs to be stored in the database.
+#We will first read the dataset source .CSV from the internet into pandas dataframe
+#Then we need to create a table in our Db2 database to store the dataset. The PERSIST command in SQL "magic" simplifies the process of table creation and writing the data from a pandas dataframe into the table
+"CSV to DB Table"
+import pandas
+chicago_socioeconomic_data = pandas.read_csv('https://data.cityofchicago.org/resource/jcxq-k9xf.csv')
+%sql PERSIST chicago_socioeconomic_data
+'Persisted chicago_socioeconomic_data'
+
+%sql SELECT * FROM chicago_socioeconomic_data limit 5;
+index	ca	community_area_name	percent_of_housing_crowded	percent_households_below_poverty	percent_aged_16_unemployed	percent_aged_25_without_high_school_diploma	percent_aged_under_18_or_over_64	per_capita_income_	hardship_index
+0	1.0	Rogers Park	7.7	23.6	8.7	18.2	27.5	23939	39.0
+1	2.0	West Ridge	7.8	17.2	8.8	20.8	38.5	23040	46.0
+2	3.0	Uptown	3.8	24.0	8.9	11.8	22.2	35787	20.0
+3	4.0	Lincoln Square	3.4	10.9	8.2	13.4	25.5	37524	17.0
+4	5.0	North Center	0.3	7.5	5.2	4.5	26.2	57123	6.0
+
+
+\How many rows are in the dataset?
+%sql SELECT count(*) FROM chicago_socioeconomic_data
+78
+\How many community areas in Chicago have a hardship index greater than 50.0?
+%sql SELECT count(*) FROM chicago_socioeconomic_data where hardship_index > 50
+38
+\What is the maximum value of hardship index in this dataset?
+%sql SELECT max(hardship_index) FROM chicago_socioeconomic_data;
+98.0
+
+\Which community area which has the highest hardship index?
+## We can use the result of the last query to as an input to this query:
+%sql SELECT community_area_name FROM chicago_socioeconomic_data where hardship_index=98.0
+## or another option:
+%sql SELECT community_area_name FROM chicago_socioeconomic_data ORDER BY hardship_index DESC NULLS LAST FETCH FIRST ROW ONLY;
+## or you can use a sub-query to determine the max hardship index:
+%sql select community_area_name from chicago_socioeconomic_data where hardship_index = ( select max(hardship_index) from chicago_socioeconomic_data ) 
+>>>
+"community_area_name"
+Riverdale
+
+\Which Chicago community areas have per-capita incomes greater than $60,000?
+%sql SELECT community_area_name FROM chicago_socioeconomic_data where per_capita_income_ > 60000;
+"community_area_name"
+Lake View
+Lincoln Park
+Near North Side
+Loop
+
+\Create a scatter plot using the variables per_capita_income_ and hardship_index. Explain the correlation between the two variables.
+import matplotlib.pyplot as plt
+%matplotlib inline
+import seaborn as sns
+
+income_vs_hardship = %sql SELECT per_capita_income_, hardship_index FROM chicago_socioeconomic_data;
+plot = sns.jointplot(x='per_capita_income_',y='hardship_index', data=income_vs_hardship.DataFrame())
+
+
+
+
+
+
+
+
+

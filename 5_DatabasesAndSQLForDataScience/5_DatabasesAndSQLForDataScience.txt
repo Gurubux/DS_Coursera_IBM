@@ -80,20 +80,101 @@ Cardinality refers to the number of Tuples (or rows) in a relational instance (t
 "-----------------------------------------------------------------------------------------------"
 "\Week 2 - Advanced SQL"
 "Video: Using String Patterns, Ranges"
+select * from author where fname like 'R%' 
+select * from author where pagesNo between 255 AND 400
+select * from author where pagesNo >=255 AND pagesNo <= 400
+select * from author where country ='AU' OR country = 'IND'
+select * from author where country in ('AU','IND','CHN','US')
+
 "Video: Sorting Result Sets"
+select * from author order by title
+select * from author order by title desc
+
+select fname, pages, title from author order by 2 
+-- Orders by the 2nd column in the result set. here pages.
 "Video: Grouping Result Sets"
+select country, count(country) from author group by country
+select country, count(country) as count from author group by country
+
+select country, count(country) as count from author group by country having count(country) > 4
+#Whereas the WHERE clause is used to restrict the entire result set, the HAVING clause is used only with the GROUP BY clause.
+
 "Reading: Hands-on LAB: String Patterns, Sorting & Grouping"
+ Db2 (and almost every other database) allows you to Load data from csv files.
+
+Query 1: Retrieve all employees whose address is in Elgin,IL
+select * from employees where ADDRESS like '%Elgin,IL';
+
+Query 2: Retrieve all employees who were born during the 1970s.
+select * from employees where B_DATE like '197%';
+
+Query 3: Retrieve all employees in department 5 whose salary is between 60000 and 70000 .
+select * from employees where DEP_ID = 5 and SALARY between 60000 and 70000;
+
+Query 4A: Retrieve a list of employees ordered by department ID.
+select * from employees order by DEP_ID;
+
+Query 4B: Retrieve a list of employees ordered in descending order by department ID and within each department ordered alphabetically in descending order by last name.
+select * from employees order by DEP_ID desc, L_NAME desc;
+
+
+Query 5A: For each department ID retrieve the number of employees in the department.
+select DEP_ID, count(DEP_ID) as count from employees group by DEP_ID;
+select  COUNT(*) as count from employees group by DEP_ID;
+
+Query 5B: For each department retrieve the number of employees in the department, and the average employees salary in the department.
+select  COUNT(*),AVG(SALARY) as count from employees group by DEP_ID;
+
+
+Query 5C: Label the computed columns in the result set of Query 5B as “NUM_EMPLOYEES” and “AVG_SALARY”.
+select  COUNT(*) as NUM_EMPLOYEES ,AVG(SALARY) as AVG_SALARY from employees group by DEP_ID;
+
+Query 5D: In Query 5C order the result set by Average Salary.
+select  COUNT(*) as NUM_EMPLOYEES ,AVG(SALARY) as AVG_SALARY from employees group by DEP_ID order by AVG(SALARY);
+
+Query 5E: In Query 5D limit the result to departments with fewer than 4 employees.
+select  COUNT(*) as NUM_EMPLOYEES ,AVG(SALARY) as AVG_SALARY from employees group by DEP_ID having COUNT(*)  < 4 order by AVG(SALARY) ;
+
+
+BONUS Query 6: Similar to 4B but instead of department ID use department name. Retrieve a list of employees ordered by department name, and within each department ordered alphabetically in descending order by last name. 
+[Hint: Department name is in the DEPARTMENTS table. So your query will need to retrieve data from more than one table. Don’t worry if you are not able to figure this one out … we’ll cover working with multiple tables in the next lesson.] 
+select * from employees e, DEPARTMENTS d where e.DEP_ID = d.DEPT_ID_DEP order by d.DEP_NAME;
+
+
 "Video: Built-in Database Functions"
 "Video: Date and Time Built-in Functions"
 "Reading: Hands-on Lab: Built-in functions"
+select SUM(SALEPRICE) from PETSALE;
+select SUM(SALEPRICE) AS SUM_OF_SALEPRICE from PETSALE;
+select MAX(QUANTITY) from PETSALE;
+select AVG(SALEPRICE) from PETSALE;
+select AVG( SALEPRICE / QUANTITY ) from PETSALE where ANIMAL = 'Dog';
+select ROUND(SALEPRICE) from PETSALE;
+select LENGTH(ANIMAL) from PETSALE;
+select UCASE(ANIMAL) from PETSALE;
+select DISTINCT(UCASE(ANIMAL)) from PETSALE;
+select * from PETSALE where LCASE(ANIMAL) = 'cat';
+select DAY(SALEDATE) from PETSALE where ANIMAL = 'Cat';
+select COUNT(*) from PETSALE where MONTH(SALEDATE)='05';
+select (SALEDATE + 3 DAYS) from PETSALE;
+select (CURRENT DATE - SALEDATE) from PETSALE;
 "Video: Sub-Queries and Nested Selects"
 "Video: Working with Multiple Tables"
 "Reading: Hands-on Lab: Sub-queries, Multiple Tables"
 "Reading: About this Optional lesson"
 "Video: Relational Model Constraints"
+
+ 1. With the entity integrity constraint, no attribute participating in the primary key is allowed to accept null values.  A primary key uniquely identifies each row in a table. If primary keys could have NULL values, you could end up with duplicate rows in a table.
+
+ 2. The Referential Integrity Constraint ensures the validity of the data using a combination of Primary Keys and Foreign Keys.
+
+ 3. The semantic integrity constraint refers to the correctness of the meaning of the data. For example, in the relation author, if the attribute or column city contains a garbage value instead of Toronto, the garbage value does not have any meaning. The semantic integrity constraint is related to the correctness of the data.
+
+
 "Video: Relational Model Constraints - Advanced"
 "Reading: Additional Information on Keys and Constraints"
 "Practice Quiz: Practice Quiz: Review of Database Constraints"
+Referential Integrity Constraint is enforced using a combination of Primary and Foreign keys. In the relation SALE, Sale_id is the primary key and Salesperson_id & Serial_no are the foreign keys.
 "Practice Quiz: Optional Not Graded Quiz on Constraints"
 "
 ""Graded: String Patterns, Ranges, Sorting and Grouping"
@@ -102,13 +183,165 @@ Cardinality refers to the number of Tuples (or rows) in a relational instance (t
 ""-----------------------------------------------------------------------------------------------"
 "\Week 3 - Accessing Databases using Python"
 "Video: How to access databases using Python?"
+Python is Open Source and not proprietary. Also, Python libraries and APIs are available for many of the databases.
+SQL API consists of a library of function calls as an application programming interface (API) for the DBMS.
 "Video: Writing code using DB-API"
+Concepts of Python DB API
+	1. Connection Objects
+		- Database connection 
+		- Manage Transactions
+	2. Cursor Objects
+		- Database Queries
+
+Connection Methods
+	1. cursor()
+	2. commit()
+	3. rollback()
+	4. close()
+
+Cursor Methods
+	1. callproc()
+	2. execute()
+	3. executemany()
+	4. fetchone()
+	5. fetchmany()
+	6. fetchall()
+	7. nextset()
+	8. Arraysize()
+	9. close()
+
+################### PYTHON CODE ##################
+from dbmodule import connect
+Connection = connect('databasename','username','password')
+Cursor = Connection.cursor()
+Cursor.execute('SELECT * from myTable')
+Results = Cursor.fetchall()
+Cursor.close()
+Connection.close()
+################### PYTHON CODE ##################
+
+A database cursor is like a file handle in that it enables you to scan through a result set of a query.
+
+
 "Video: Connecting to a database using ibm_db API"
+ibm_db API library can only be used to connect to certain IBM databases like Db2 and Db2 Warehouse on Cloud.
+The ibm_db API provides a variety of useful Python functions for accessing and manipulating data in an IBM data server database.
+The ibm_db API includes functions for calling stored procedures, committing and rolling back transactions, handling errors and retrieving metadata.
+The ibm_db API includes functions for connecting to a database, prepairing and issuing SQL statements, fetching rows from result sets.
+
+The ibm_db API uses the IBM Data Server Driver for ODBC, and CLI APIs to connect to IBM, DB2, and Informix.
+
+
+
+
 "Reading: Lab 0: Create Database Credentials"
+credentials
+{
+  "hostname": "dashdb-txn-sbox-yp-lon02-02.services.eu-gb.bluemix.net",
+  "password": "05thvgc0-1t0ftsk",
+  "https_url": "https://dashdb-txn-sbox-yp-lon02-02.services.eu-gb.bluemix.net:8443",
+  "port": 50000,
+  "ssldsn": "DATABASE=BLUDB;HOSTNAME=dashdb-txn-sbox-yp-lon02-02.services.eu-gb.bluemix.net;PORT=50001;PROTOCOL=TCPIP;UID=zbg05241;PWD=05thvgc0-1t0ftsk;Security=SSL;",
+  "host": "dashdb-txn-sbox-yp-lon02-02.services.eu-gb.bluemix.net",
+  "jdbcurl": "jdbc:db2://dashdb-txn-sbox-yp-lon02-02.services.eu-gb.bluemix.net:50000/BLUDB",
+  "uri": "db2://zbg05241:05thvgc0-1t0ftsk@dashdb-txn-sbox-yp-lon02-02.services.eu-gb.bluemix.net:50000/BLUDB",
+  "db": "BLUDB",
+  "dsn": "DATABASE=BLUDB;HOSTNAME=dashdb-txn-sbox-yp-lon02-02.services.eu-gb.bluemix.net;PORT=50000;PROTOCOL=TCPIP;UID=zbg05241;PWD=05thvgc0-1t0ftsk;",
+  "username": "zbg05241",
+  "ssljdbcurl": "jdbc:db2://dashdb-txn-sbox-yp-lon02-02.services.eu-gb.bluemix.net:50001/BLUDB:sslConnection=true;"
+}
 "LTI Item: Hands-on LAB 1: Connecting to a database instance"
+This Lab will demonstrate how to create a database connection to an instance of IBM Db2 on Cloud. You will be using Jupyter notebooks to complete the labs.
+################### PYTHON CODE ##################
+
+import ibm_db
+
+#DO NOT MODIFY THIS CELL. Just RUN it with Shift + Enter
+#Create the dsn connection string
+dsn = (
+    "DRIVER={0};"
+    "DATABASE={1};"
+    "HOSTNAME={2};"
+    "PORT={3};"
+    "PROTOCOL={4};"
+    "UID={5};"
+    "PWD={6};").format(dsn_driver, dsn_database, dsn_hostname, dsn_port, dsn_protocol, dsn_uid, dsn_pwd)
+
+#print the connection string to check correct values are specified
+print(dsn)
+
+
+#Create database connection
+try:
+    conn = ibm_db.connect(dsn, "", "")
+    print ("Connected to database: ", dsn_database, "as user: ", dsn_uid, "on host: ", dsn_hostname)
+
+except:
+    print ("Unable to connect: ", ibm_db.conn_errormsg() )
+>>>Connected to database:  BLUDB as user:  zbg05241 on host:  dashdb-txn-sbox-yp-lon02-02.services.eu-gb.bluemix.net
+
+#Retrieve Metadata for the Database Server
+server = ibm_db.server_info(conn)
+
+print ("DBMS_NAME: ", server.DBMS_NAME)
+print ("DBMS_VER:  ", server.DBMS_VER)
+print ("DB_NAME:   ", server.DB_NAME)
+
+#Retrieve Metadata for the Database Client / Driver
+client = ibm_db.client_info(conn)
+
+print ("DRIVER_NAME:          ", client.DRIVER_NAME) 
+print ("DRIVER_VER:           ", client.DRIVER_VER)
+print ("DATA_SOURCE_NAME:     ", client.DATA_SOURCE_NAME)
+print ("DRIVER_ODBC_VER:      ", client.DRIVER_ODBC_VER)
+print ("ODBC_VER:             ", client.ODBC_VER)
+print ("ODBC_SQL_CONFORMANCE: ", client.ODBC_SQL_CONFORMANCE)
+print ("APPL_CODEPAGE:        ", client.APPL_CODEPAGE)
+print ("CONN_CODEPAGE:        ", client.CONN_CODEPAGE)
+
+ibm_db.close(conn)
+
+################### PYTHON CODE ##################
+
+%sql select distinct(name), coltype, length \
+	from sysibm.syscolumns where tbname = 'CHICAGO_CRIME_DATA'
+
+if you use %%sql then no need to use backslash on new line 
+%%sql select distinct(name), coltype, length
+	from sysibm.syscolumns where tbname = 'CHICAGO_CRIME_DATA'
+
+
 "Video: Creating tables, loading data and querying data"
+Select TABSCHEMA, TABNAME, CREATE_TIME from syscat.tables, where tabschema = 'USERNAME'
+
 "LTI Item: Hands-on LAB 2: Creating tables, inserting and querying Data"
+--1.Import the ibm_db Python library
+--2.Identify and enter the database connection credentials
+--3.Create the database connection
+--4.Create a table
+--5.Insert data into the table
+--6.Query data from the table
+--7.Retrieve the result set into a pandas dataframe
+--8.Close the database connection
+
+--1.Import the ibm_db Python library
+import ibm_db
+--2.Identify and enter the database connection credentials
+--3.Create the database connection
+--4.Create a table
+--5.Insert data into the table
+--6.Query data from the table
+--7.Retrieve the result set into a pandas dataframe
+--8.Close the database connection
+
+
+
+
 "LTI Item: Hands-on Tutorial: Accessing databases with SQL magic"
+NEW FILE
+
+
+
 "Video: Analyzing data with Python"
 "LTI Item: Hands-on LAB 3: Analyzing a real world data set"
 "Reading: About this Optional Section"

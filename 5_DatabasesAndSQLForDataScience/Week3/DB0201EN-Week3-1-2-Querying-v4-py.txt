@@ -1,0 +1,117 @@
+"LTI Item: Hands-on LAB 2: Creating tables, inserting and querying Data"
+1.Import the ibm_db Python library
+2.Identify and enter the database connection credentials
+3.Create the database connection
+4.Create a table
+5.Insert data into the table
+6.Query data from the table
+7.Retrieve the result set into a pandas dataframe
+8.Close the database connection
+
+\1.Import the ibm_db Python library
+import ibm_db
+
+\2.Identify and enter the database connection credentials
+#Replace the placeholder values with the actuals for your Db2 Service Credentials
+dsn_hostname = "dashdb-txn-sbox-yp-lon02-02.services.eu-gb.bluemix.net" # e.g.: "dashdb-txn-sbox-yp-dal09-04.services.dal.bluemix.net"
+dsn_uid = "zbg05241"        # e.g. "abc12345"
+dsn_pwd = "05thvgc0-1t0ftsk"      # e.g. "7dBZ3wWt9XN6$o0J"
+dsn_driver = "{IBM DB2 ODBC DRIVER}"
+dsn_database = "BLUDB"            # e.g. "BLUDB"
+dsn_port = "50000"                # e.g. "50000" 
+dsn_protocol = "TCPIP"            # i.e. "TCPIP"
+\3.Create the database connection
+#Create database connection
+#DO NOT MODIFY THIS CELL. Just RUN it with Shift + Enter
+dsn = (
+    "DRIVER={0};"
+    "DATABASE={1};"
+    "HOSTNAME={2};"
+    "PORT={3};"
+    "PROTOCOL={4};"
+    "UID={5};"
+    "PWD={6};").format(dsn_driver, dsn_database, dsn_hostname, dsn_port, dsn_protocol, dsn_uid, dsn_pwd)
+
+try:
+    conn = ibm_db.connect(dsn, "", "")
+    print ("Connected to database: ", dsn_database, "as user: ", dsn_uid, "on host: ", dsn_hostname)
+
+except:
+    print ("Unable to connect: ", ibm_db.conn_errormsg() )
+
+\4.Create a table
+#Lets first drop the table INSTRUCTOR in case it exists from a previous attempt
+dropQuery = "drop table INSTRUCTOR"
+
+#Now execute the drop statment
+dropStmt = ibm_db.exec_immediate(conn, dropQuery)
+#Construct the Create Table DDL statement - replace the ... with rest of the statement
+createQuery = "create table INSTRUCTOR(id INTEGER PRIMARY KEY NOT NULL, fname VARCHAR(20),lname VARCHAR(20),city VARCHAR(20),ccode CHAR(2))"
+
+#Now fill in the name of the method and execute the statement
+createStmt = ibm_db.exec_immediate(conn, createQuery)
+\5.Insert data into the table
+#replace ... with the insert statement that inerts the remaining two rows of data
+insertQuery = "insert into INSTRUCTOR values(1,'Rav','Ahuja','TORONTO','CA'),(2, 'Raul', 'Chong', 'Markham', 'CA'),(3, 'Hima', 'Vasudevan', 'Chicago', 'US')"
+
+#execute the statement
+insertStmt = ibm_db.exec_immediate(conn, insertQuery2)
+\6.Query data from the table
+#Construct the query that retrieves all rows from the INSTRUCTOR table
+selectQuery = "select * from INSTRUCTOR"
+
+#Execute the statement
+selectStmt = ibm_db.exec_immediate(conn, selectQuery)
+
+#Fetch the Dictionary (for the first row only) - replace ... with your code
+ibm_db.fetch_both(selectStmt)
+>>>
+{'ID': 1,
+ 0: 1,
+ 'FNAME': 'Rav',
+ 1: 'Rav',
+ 'LNAME': 'Ahuja',
+ 2: 'Ahuja',
+ 'CITY': 'TORONTO',
+ 3: 'TORONTO',
+ 'CCODE': 'CA',
+ 4: 'CA'}
+
+ #Fetch the rest of the rows and print the ID and FNAME for those rows
+while ibm_db.fetch_row(selectStmt) != False:
+   print (" ID:",  ibm_db.result(selectStmt, 0), " FNAME:",  ibm_db.result(selectStmt, "FNAME"))
+>>>
+ID: 2  FNAME: Raul
+ ID: 3  FNAME: Hima
+
+#Enter your code below
+updateQuery = "update INSTRUCTOR set CITY='MOOSETOWN' where FNAME='Rav'"
+updateStmt = ibm_db.exec_immediate(conn, updateQuery)
+
+\7.Retrieve the result set into a pandas dataframe
+import pandas
+import ibm_db_dbi
+
+#connection for pandas
+pconn = ibm_db_dbi.Connection(conn)
+
+#query statement to retrieve all rows in INSTRUCTOR table
+selectQuery = "select * from INSTRUCTOR"
+
+#retrieve the query results into a pandas dataframe
+pdf = pandas.read_sql(selectQuery, pconn)
+
+#print just the LNAME for first row in the pandas data frame
+pdf.LNAME[0]
+
+#print the entire data frame
+pdf
+>>>
+	ID	FNAME		LNAME		CITY		CCODE
+0	1	Rav			Ahuja		MOOSETOWN	CA
+1	2	Raul		Chong		Markham		CA
+2	3	Hima		Vasudevan	Chicago		US
+pdf.shape
+>>> (3, 5)
+\8.Close the database connection
+ibm_db.close(conn)
