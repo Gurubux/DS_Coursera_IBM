@@ -1,0 +1,58 @@
+\Descriptive Statistics
+df1=pd.DataFrame({'A':["a","b","a","c","a","c","b"]})
+df1['A'].value_counts()
+
+x=df[“engine-size”]
+y=df[“price”]
+plt.scatter(x,y)
+plt.title(“Scatterplot of Engine Size vs Price”)
+plt.xlabel(“Engine Size”) 
+plt.ylabel(“Price”) 
+
+\GroupBy in Python
+	- consider the dataframe df , how many different groups would there be if you applied the groupby method to the column 'A'
+	- pivot table
+
+\Correlation
+
+\Correlation-statistics
+
+\Exploratory Data Analysis
+
+--------------------------------------------------------------------------------------
+NOTEBOOK : DATA ANALYSIS WITH PYTHON
+Import Data from Module
+Analyzing Individual Feature Patterns using Visualization
+Descriptive Statistical Analysis
+Basics of Grouping
+Correlation and Causation
+ANOVA
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
