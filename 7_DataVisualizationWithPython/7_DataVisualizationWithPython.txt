@@ -1,0 +1,402 @@
+Data visualizations are used to (check all that apply):
+	- explore a given dataset. ✔
+	- train and test a machine learning algorithm.
+	- perform data analytics and build predictive models. 
+	- support recommendations to different stakeholders. ✔
+	- share unbiased representation of data. ✔
+
+
+Matplotlib was created by John Hunter, an American neurobiologist, and was originally developed as an EEG/ECoG visualization tool.
+
+The Backend, Artist, and Scripting Layers are the three layers that make up the Matplotlib architecture.
+
+Using the inline backend, you can modify a figure after it is rendered. - False
+
+Which of the following are examples of Matplotlib magic functions? Choose all that apply.
+$matplotlib outline
+%matplotlib inline✔
+#matplotlib inline
+%matplotlib notebook✔
+#matplotlib notebook
+
+
+import numpy as np  # useful for many scientific computing in Python
+import pandas as pd # primary data structure library
+!conda install -c anaconda xlrd --yes # read_excel()
+#read from an excel to dataframe xlrd 
+df_can = pd.read_excel('https://s3-api.us-geo.objectstorage.softlayer.net/cf-courses-data/CognitiveClass/DV0101EN/labs/Data_Files/Canada.xlsx',
+                       sheet_name='Canada by Citizenship',
+                       skiprows=range(20),
+                       skipfooter=2
+                      )
+
+
+
+nifty_Aug_2018_2019 = pd.read_csv('https://raw.githubusercontent.com/Gurubux/Datasets/master/Stock/nifty_Aug_2018-2019.csv')
+nifty_Aug_2017_2018 = pd.read_csv('https://raw.githubusercontent.com/Gurubux/Datasets/master/Stock/nifty_Aug_2017-2018.csv')
+nifty_Aug_2016_2017 = pd.read_csv('https://raw.githubusercontent.com/Gurubux/Datasets/master/Stock/nifty_Aug_2016-2017.csv')
+nifty_Aug_2015_2016 = pd.read_csv('https://raw.githubusercontent.com/Gurubux/Datasets/master/Stock/nifty_Aug_2015-2016.csv')
+nifty_Aug_2014_2015 = pd.read_csv('https://raw.githubusercontent.com/Gurubux/Datasets/master/Stock/nifty_Aug_2014-2015.csv')
+nifty_Aug_2013_2014 = pd.read_csv('https://raw.githubusercontent.com/Gurubux/Datasets/master/Stock/nifty_Aug_2013-2014.csv')
+nifty_Aug_2012_2013 = pd.read_csv('https://raw.githubusercontent.com/Gurubux/Datasets/master/Stock/nifty_Aug_2012-2013.csv')
+nifty_Aug_2011_2012 = pd.read_csv('https://raw.githubusercontent.com/Gurubux/Datasets/master/Stock/nifty_Aug_2011-2012.csv')
+nifty_Aug_2010_2011 = pd.read_csv('https://raw.githubusercontent.com/Gurubux/Datasets/master/Stock/nifty_Aug_2010-2011.csv')
+nifty_Aug_2009_2010 = pd.read_csv('https://raw.githubusercontent.com/Gurubux/Datasets/master/Stock/nifty_Aug_2009-2010.csv')
+nifty_Aug_2008_2009 = pd.read_csv('https://raw.githubusercontent.com/Gurubux/Datasets/master/Stock/nifty_Aug_2008-2009.csv')
+nifty_Aug_2007_2008 = pd.read_csv('https://raw.githubusercontent.com/Gurubux/Datasets/master/Stock/nifty_Aug_2007-2008.csv')
+nifty_Aug_2006_2007 = pd.read_csv('https://raw.githubusercontent.com/Gurubux/Datasets/master/Stock/nifty_Aug_2006-2007.csv')
+nifty_Aug_2005_2006 = pd.read_csv('https://raw.githubusercontent.com/Gurubux/Datasets/master/Stock/nifty_Aug_2005-2006.csv')
+nifty_Aug_2004_2005 = pd.read_csv('https://raw.githubusercontent.com/Gurubux/Datasets/master/Stock/nifty_Aug_2004-2005.csv')
+nifty_Aug_2003_2004 = pd.read_csv('https://raw.githubusercontent.com/Gurubux/Datasets/master/Stock/nifty_Aug_2003-2004.csv')
+nifty_Aug_2002_2003 = pd.read_csv('https://raw.githubusercontent.com/Gurubux/Datasets/master/Stock/nifty_Aug_2002-2003.csv')
+nifty_Aug_2001_2002 = pd.read_csv('https://raw.githubusercontent.com/Gurubux/Datasets/master/Stock/nifty_Aug_2001-2002.csv')
+nifty_Aug_2000_2001 = pd.read_csv('https://raw.githubusercontent.com/Gurubux/Datasets/master/Stock/nifty_Aug_2000-2001.csv')
+nifty_Aug_1999_2000 = pd.read_csv('https://raw.githubusercontent.com/Gurubux/Datasets/master/Stock/nifty_Aug_1999-2000.csv')
+nifty_Aug_1998_1999 = pd.read_csv('https://raw.githubusercontent.com/Gurubux/Datasets/master/Stock/nifty_Aug_1998-1999.csv')
+nifty_Aug_1997_1998 = pd.read_csv('https://raw.githubusercontent.com/Gurubux/Datasets/master/Stock/nifty_Aug_1997-1998.csv')
+nifty_Aug_1996_1997 = pd.read_csv('https://raw.githubusercontent.com/Gurubux/Datasets/master/Stock/nifty_Aug_1996-1997.csv')
+nifty_Aug_1995_1996 = pd.read_csv('https://raw.githubusercontent.com/Gurubux/Datasets/master/Stock/nifty_Aug_1995-1996.csv')
+nifty_Aug_1994_1995 = pd.read_csv('https://raw.githubusercontent.com/Gurubux/Datasets/master/Stock/nifty_Aug_1994-1995.csv')
+nifty_Aug_1993_1994 = pd.read_csv('https://raw.githubusercontent.com/Gurubux/Datasets/master/Stock/nifty_Aug_1993-1994.csv')
+nifty_Aug_1992_1993 = pd.read_csv('https://raw.githubusercontent.com/Gurubux/Datasets/master/Stock/nifty_Aug_1992-1993.csv')
+nifty_Aug_1991_1992 = pd.read_csv('https://raw.githubusercontent.com/Gurubux/Datasets/master/Stock/nifty_Aug_1991-1992.csv')
+nifty_Aug_1990_1991 = pd.read_csv('https://raw.githubusercontent.com/Gurubux/Datasets/master/Stock/nifty_Aug_1990-1991.csv')
+
+
+ax = newdf.plot() 
+ax = nifty_Aug_2018_2019.loc[:,['Date','Close']].plot(kind='line')
+nifty_Aug_2017_2018.loc[:,['Date','Close']].plot(kind='line',ax=ax)
+nifty_Aug_2016_2017.loc[:,['Date','Close']].plot(kind='line',ax=ax)
+nifty_Aug_2015_2016.loc[:,['Date','Close']].plot(kind='line',ax=ax)
+nifty_Aug_2014_2015.loc[:,['Date','Close']].plot(kind='line',ax=ax)
+nifty_Aug_2013_2014.loc[:,['Date','Close']].plot(kind='line',ax=ax)
+nifty_Aug_2012_2013.loc[:,['Date','Close']].plot(kind='line',ax=ax)
+nifty_Aug_2011_2012.loc[:,['Date','Close']].plot(kind='line',ax=ax)
+nifty_Aug_2010_2011.loc[:,['Date','Close']].plot(kind='line',ax=ax)
+nifty_Aug_2009_2010.loc[:,['Date','Close']].plot(kind='line',ax=ax)
+nifty_Aug_2008_2009.loc[:,['Date','Close']].plot(kind='line',ax=ax)
+nifty_Aug_2007_2008.loc[:,['Date','Close']].plot(kind='line',ax=ax)
+nifty_Aug_2006_2007.loc[:,['Date','Close']].plot(kind='line',ax=ax)
+nifty_Aug_2005_2006.loc[:,['Date','Close']].plot(kind='line',ax=ax)
+nifty_Aug_2004_2005.loc[:,['Date','Close']].plot(kind='line',ax=ax)
+nifty_Aug_2003_2004.loc[:,['Date','Close']].plot(kind='line',ax=ax)
+nifty_Aug_2002_2003.loc[:,['Date','Close']].plot(kind='line',ax=ax)
+nifty_Aug_2001_2002.loc[:,['Date','Close']].plot(kind='line',ax=ax)
+nifty_Aug_2000_2001.loc[:,['Date','Close']].plot(kind='line',ax=ax)
+nifty_Aug_1999_2000.loc[:,['Date','Close']].plot(kind='line',ax=ax)
+nifty_Aug_1998_1999.loc[:,['Date','Close']].plot(kind='line',ax=ax)
+nifty_Aug_1997_1998.loc[:,['Date','Close']].plot(kind='line',ax=ax)
+nifty_Aug_1996_1997.loc[:,['Date','Close']].plot(kind='line',ax=ax)
+nifty_Aug_1995_1996.loc[:,['Date','Close']].plot(kind='line',ax=ax)
+nifty_Aug_1994_1995.loc[:,['Date','Close']].plot(kind='line',ax=ax)
+nifty_Aug_1993_1994.loc[:,['Date','Close']].plot(kind='line',ax=ax)
+nifty_Aug_1992_1993.loc[:,['Date','Close']].plot(kind='line',ax=ax)
+nifty_Aug_1991_1992.loc[:,['Date','Close']].plot(kind='line',ax=ax)
+nifty_Aug_1990_1991.loc[:,['Date','Close']].plot(kind='line',ax=ax)
+
+nifty_Aug_2018_2019.loc[:,['Close']].plot(kind='line')
+nifty_Aug_2017_2018.loc[:,['Close']].plot(kind='line')
+nifty_Aug_2016_2017.loc[:,['Close']].plot(kind='line')
+nifty_Aug_2015_2016.loc[:,['Close']].plot(kind='line')
+nifty_Aug_2014_2015.loc[:,['Close']].plot(kind='line')
+nifty_Aug_2013_2014.loc[:,['Close']].plot(kind='line')
+nifty_Aug_2012_2013.loc[:,['Close']].plot(kind='line')
+nifty_Aug_2011_2012.loc[:,['Close']].plot(kind='line')
+nifty_Aug_2010_2011.loc[:,['Close']].plot(kind='line')
+nifty_Aug_2009_2010.loc[:,['Close']].plot(kind='line')
+
+
+
+print('nifty_Aug_2018_2019',len(nifty_Aug_2018_2019))
+print('nifty_Aug_2017_2018',len(nifty_Aug_2017_2018))
+print('nifty_Aug_2016_2017',len(nifty_Aug_2016_2017))
+print('nifty_Aug_2015_2016',len(nifty_Aug_2015_2016))
+print('nifty_Aug_2014_2015',len(nifty_Aug_2014_2015))
+print('nifty_Aug_2013_2014',len(nifty_Aug_2013_2014))
+print('nifty_Aug_2012_2013',len(nifty_Aug_2012_2013))
+print('nifty_Aug_2011_2012',len(nifty_Aug_2011_2012))
+print('nifty_Aug_2010_2011',len(nifty_Aug_2010_2011))
+print('nifty_Aug_2009_2010',len(nifty_Aug_2009_2010))
+len(nifty_Aug_2008_2009),len(nifty_Aug_2007_2008),len(nifty_Aug_2006_2007),len(nifty_Aug_2005_2006),len(nifty_Aug_2004_2005),len(nifty_Aug_2003_2004),len(nifty_Aug_2002_2003),len(nifty_Aug_2001_2002),len(nifty_Aug_2000_2001),len(nifty_Aug_1999_2000),len(nifty_Aug_1998_1999),len(nifty_Aug_1997_1998),len(nifty_Aug_1996_1997),len(nifty_Aug_1995_1996),len(nifty_Aug_1994_1995),len(nifty_Aug_1993_1994),len(nifty_Aug_1992_1993),len(nifty_Aug_1991_1992),len(nifty_Aug_1990_1991)
+num_of_days = [len(nifty_Aug_2018_2019),len(nifty_Aug_2017_2018),len(nifty_Aug_2016_2017),len(nifty_Aug_2015_2016),len(nifty_Aug_2014_2015),len(nifty_Aug_2013_2014),len(nifty_Aug_2012_2013),len(nifty_Aug_2011_2012),len(nifty_Aug_2010_2011),len(nifty_Aug_2009_2010),len(nifty_Aug_2008_2009),len(nifty_Aug_2007_2008),len(nifty_Aug_2006_2007),len(nifty_Aug_2005_2006),len(nifty_Aug_2004_2005),len(nifty_Aug_2003_2004),len(nifty_Aug_2002_2003),len(nifty_Aug_2001_2002),len(nifty_Aug_2000_2001),len(nifty_Aug_1999_2000),len(nifty_Aug_1998_1999),len(nifty_Aug_1997_1998),len(nifty_Aug_1996_1997),len(nifty_Aug_1995_1996),len(nifty_Aug_1994_1995),len(nifty_Aug_1993_1994),len(nifty_Aug_1992_1993),len(nifty_Aug_1991_1992),len(nifty_Aug_1990_1991)]
+
+from plotly.graph_objs import *
+py.sign_in(username='Gurubux', api_key='oEqgrGZf5qwexBKGt4ET')
+trace1 = {
+  "mode": "lines", 
+  "type": "scatter", 
+  "x": [1, 2, 3, 5, 6], 
+  "y": [1, 3.5, 7, 24, 38]
+}
+trace2 = {
+  "mode": "lines", 
+  "type": "scatter", 
+  "x": [1, 2, 3, 5, 6], 
+  "y": [1, 4, 32, 48, 99]
+}
+data = Data([trace1, trace2])
+layout = {"title": "Tutorial: Multiple Traces Plot"}
+fig = Figure(data=data, layout=layout)
+plot_url = py.plot(fig)
+
+
+trace1 = {
+  "mode": "lines", 
+  "type": "scatter", 
+  "x": [1, 2, 3, 5, 6], 
+  "y": [1, 3.5, 7, 24, 38]
+}
+
+
+
+trace_2017_2018 = {
+	"mode" : "lines",
+	"type" : "scatter",
+	"x": nifty_Aug_2017_2018.index,
+    'y': nifty_Aug_2017_2018['Close'],
+}
+trace_2016_2017 = {
+	"mode" : "lines",
+	"type" : "scatter",
+	"x": nifty_Aug_2016_2017.index,
+    'y': nifty_Aug_2016_2017['Close'],
+}
+trace_2015_2016 = {
+	"mode" : "lines",
+	"type" : "scatter",
+	"x": nifty_Aug_2015_2016.index,
+    'y': nifty_Aug_2015_2016['Close'],
+}
+trace_2014_2015 = {
+	"mode" : "lines",
+	"type" : "scatter",
+	"x": nifty_Aug_2014_2015.index,
+    'y': nifty_Aug_2014_2015['Close'],
+}
+trace_2013_2014 = {
+	"mode" : "lines",
+	"type" : "scatter",
+	"x": nifty_Aug_2013_2014.index,
+    'y': nifty_Aug_2013_2014['Close'],
+}
+trace_2012_2013 = {
+	"mode" : "lines",
+	"type" : "scatter",
+	"x": nifty_Aug_2012_2013.index,
+    'y': nifty_Aug_2012_2013['Close'],
+}
+trace_2011_2012 = {
+	"mode" : "lines",
+	"type" : "scatter",
+	"x": nifty_Aug_2011_2012.index,
+    'y': nifty_Aug_2011_2012['Close'],
+}
+trace_2010_2011 = {
+	"mode" : "lines",
+	"type" : "scatter",
+	"x": nifty_Aug_2010_2011.index,
+    'y': nifty_Aug_2010_2011['Close'],
+}
+trace_2009_2010 = {
+	"mode" : "lines",
+	"type" : "scatter",
+	"x": nifty_Aug_2009_2010.index,
+    'y': nifty_Aug_2009_2010['Close'],
+}
+trace_2008_2009 = {
+	"mode" : "lines",
+	"type" : "scatter",
+	"x": nifty_Aug_2008_2009.index,
+    'y': nifty_Aug_2008_2009['Close'],
+}
+trace_2007_2008 = {
+	"mode" : "lines",
+	"type" : "scatter",
+	"x": nifty_Aug_2007_2008.index,
+    'y': nifty_Aug_2007_2008['Close'],
+}
+trace_2006_2007 = {
+	"mode" : "lines",
+	"type" : "scatter",
+	"x": nifty_Aug_2006_2007.index,
+    'y': nifty_Aug_2006_2007['Close'],
+}
+trace_2005_2006 = {
+	"mode" : "lines",
+	"type" : "scatter",
+	"x": nifty_Aug_2005_2006.index,
+    'y': nifty_Aug_2005_2006['Close'],
+}
+trace_2004_2005 = {
+	"mode" : "lines",
+	"type" : "scatter",
+	"x": nifty_Aug_2004_2005.index,
+    'y': nifty_Aug_2004_2005['Close'],
+}
+trace_2003_2004 = {
+	"mode" : "lines",
+	"type" : "scatter",
+	"x": nifty_Aug_2003_2004.index,
+    'y': nifty_Aug_2003_2004['Close'],
+}
+trace_2002_2003 = {
+	"mode" : "lines",
+	"type" : "scatter",
+	"x": nifty_Aug_2002_2003.index,
+    'y': nifty_Aug_2002_2003['Close'],
+}
+trace_2001_2002 = {
+	"mode" : "lines",
+	"type" : "scatter",
+	"x": nifty_Aug_2001_2002.index,
+    'y': nifty_Aug_2001_2002['Close'],
+}
+trace_2000_2001 = {
+	"mode" : "lines",
+	"type" : "scatter",
+	"x": nifty_Aug_2000_2001.index,
+    'y': nifty_Aug_2000_2001['Close'],
+}
+trace_1999_2000 = {
+	"mode" : "lines",
+	"type" : "scatter",
+	"x": nifty_Aug_1999_2000.index,
+    'y': nifty_Aug_1999_2000['Close'],
+}
+trace_1998_1999 = {
+	"mode" : "lines",
+	"type" : "scatter",
+	"x": nifty_Aug_1998_1999.index,
+    'y': nifty_Aug_1998_1999['Close'],
+}
+trace_1997_1998 = {
+	"mode" : "lines",
+	"type" : "scatter",
+	"x": nifty_Aug_1997_1998.index,
+    'y': nifty_Aug_1997_1998['Close'],
+}
+trace_1996_1997 = {
+	"mode" : "lines",
+	"type" : "scatter",
+	"x": nifty_Aug_1996_1997.index,
+    'y': nifty_Aug_1996_1997['Close'],
+}
+trace_1995_1996 = {
+	"mode" : "lines",
+	"type" : "scatter",
+	"x": nifty_Aug_1995_1996.index,
+    'y': nifty_Aug_1995_1996['Close'],
+}
+trace_1994_1995 = {
+	"mode" : "lines",
+	"type" : "scatter",
+	"x": nifty_Aug_1994_1995.index,
+    'y': nifty_Aug_1994_1995['Close'],
+}
+trace_1993_1994 = {
+	"mode" : "lines",
+	"type" : "scatter",
+	"x": nifty_Aug_1993_1994.index,
+    'y': nifty_Aug_1993_1994['Close'],
+}
+trace_1992_1993 = {
+	"mode" : "lines",
+	"type" : "scatter",
+	"x": nifty_Aug_1992_1993.index,
+    'y': nifty_Aug_1992_1993['Close'],
+}
+trace_1991_1992 = {
+	"mode" : "lines",
+	"type" : "scatter",
+	"x": nifty_Aug_1991_1992.index,
+    'y': nifty_Aug_1991_1992['Close'],
+}
+trace_1990_1991 = {
+	"mode" : "lines",
+	"type" : "scatter",
+	"x": nifty_Aug_1990_1991.index,
+    'y': nifty_Aug_1990_1991['Close'],
+}
+
+data = Data([trace_2017_2018,
+trace_2016_2017,
+trace_2015_2016,
+trace_2014_2015,
+trace_2013_2014,
+trace_2012_2013,
+trace_2011_2012,
+trace_2010_2011,
+trace_2009_2010,
+trace_2008_2009,
+trace_2007_2008,
+trace_2006_2007,
+trace_2005_2006,
+trace_2004_2005,
+trace_2003_2004,
+trace_2002_2003,
+trace_2001_2002,
+trace_2000_2001,
+trace_1999_2000,
+trace_1998_1999,
+trace_1997_1998,
+trace_1996_1997,
+trace_1995_1996,
+trace_1994_1995,
+trace_1993_1994,
+trace_1992_1993,
+trace_1991_1992,
+trace_1990_1991,])
+
+
+
+
+py.iplot([{
+    'x': nifty_Aug_2018_2019.index,
+    'y': nifty_Aug_2018_2019['Close'],
+}])
+
+
+len(nifty_Aug_2018_2019)
+len(nifty_Aug_2017_2018)
+len(nifty_Aug_2016_2017)
+len(nifty_Aug_2015_2016)
+len(nifty_Aug_2014_2015)
+len(nifty_Aug_2013_2014)
+len(nifty_Aug_2012_2013)
+len(nifty_Aug_2011_2012)
+len(nifty_Aug_2010_2011)
+len(nifty_Aug_2009_2010)
+
+year = ['2018_2019','2017_2018','2016_2017','2015_2016','2014_2015','2013_2014','2012_2013','2011_2012','2010_2011','2009_2010','2008_2009','2007_2008','2006_2007','2005_2006','2004_2005','2003_2004','2002_2003','2001_2002','2000_2001','1999_2000','1998_1999','1997_1998','1996_1997','1995_1996','1994_1995','1993_1994','1992_1993','1991_1992','1990_1991']
+
+#plotly on Jupyter
+step 1 : Create an account on Plotly
+Step 2 : Generate an API, which is under settings
+Step 3: Please insert your username and api key and run the following code
+import plotly
+plotly.tools.set_credentials_file(username=' ', api_key=' ')
+
+
+
+
+ax = sns.lineplot(x=nifty_Aug_2018_2019.index, y= 'Close',data=nifty_Aug_2018_2019,label='2018_2019')
+sns.lineplot(x=nifty_Aug_2017_2018.index, y='Close',data=nifty_Aug_2017_2018,ax=ax,label='2017_2018')
+sns.lineplot(x=nifty_Aug_2016_2017.index, y='Close',data=nifty_Aug_2016_2017,ax=ax,label='2016_2017')
+sns.lineplot(x=nifty_Aug_2015_2016.index, y='Close',data=nifty_Aug_2015_2016,ax=ax,label='2015_2016')
+sns.lineplot(x=nifty_Aug_2014_2015.index, y='Close',data=nifty_Aug_2014_2015,ax=ax,label='2014_2015')
+sns.lineplot(x=nifty_Aug_2013_2014.index, y='Close',data=nifty_Aug_2013_2014,ax=ax,label='2013_2014')
+sns.lineplot(x=nifty_Aug_2012_2013.index, y='Close',data=nifty_Aug_2012_2013,ax=ax,label='2012_2013')
+sns.lineplot(x=nifty_Aug_2011_2012.index, y='Close',data=nifty_Aug_2011_2012,ax=ax,label='2011_2012')
+sns.lineplot(x=nifty_Aug_2010_2011.index, y='Close',data=nifty_Aug_2010_2011,ax=ax,label='2010_2011')
+sns.lineplot(x=nifty_Aug_2009_2010.index, y='Close',data=nifty_Aug_2009_2010,ax=ax,label='2009_2010')
+
+ax = sns.lineplot(x='Date', y= 'Close',data=nifty_Aug_2018_2019,label='2018_2019')
+sns.lineplot(x='Date', y='Close',data=nifty_Aug_2017_2018,ax=ax,label='2017_2018')
+sns.lineplot(x='Date', y='Close',data=nifty_Aug_2016_2017,ax=ax,label='2016_2017')
+sns.lineplot(x='Date', y='Close',data=nifty_Aug_2015_2016,ax=ax,label='2015_2016')
+sns.lineplot(x='Date', y='Close',data=nifty_Aug_2014_2015,ax=ax,label='2014_2015')
+sns.lineplot(x='Date', y='Close',data=nifty_Aug_2013_2014,ax=ax,label='2013_2014')
+sns.lineplot(x='Date', y='Close',data=nifty_Aug_2012_2013,ax=ax,label='2012_2013')
+sns.lineplot(x='Date', y='Close',data=nifty_Aug_2011_2012,ax=ax,label='2011_2012')
+sns.lineplot(x='Date', y='Close',data=nifty_Aug_2010_2011,ax=ax,label='2010_2011')
+sns.lineplot(x='Date', y='Close',data=nifty_Aug_2009_2010,ax=ax,label='2009_2010')
