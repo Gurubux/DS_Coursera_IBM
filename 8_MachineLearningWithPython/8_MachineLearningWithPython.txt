@@ -1,0 +1,26 @@
+Jaccard index
+F1-score
+LogLoss
+
+Eclerks
+Ubix
+Fractals
+Exponentia Data labs
+zobble
+Datamatics
+MuSigma
+Deloitte
+Flight network.com
+
+
+Algorithm			Jaccard	F1-score	LogLoss
+KNN					0.7407	0.7144		NA
+Decision Tree		0.7592	0.7618		NA
+SVM					0.7592	0.6959		NA
+LogisticRegression	0.7777	0.7089		0.4947
+
+	Algorithm			Jaccard		F1-score	LogLoss
+0	KNN					0.700199	0.722222	Nan
+1	Decision Tree		0.703704	0.703704	Nan
+2	SVM					0.683128	0.740741	Nan
+3	LogisticRegression	0.630418	0.740741	0.515361

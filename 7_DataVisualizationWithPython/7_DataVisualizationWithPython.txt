@@ -411,3 +411,4 @@ Seaborn
 
 https://www.youracclaim.com/badges/8cc171cc-916c-467c-9844-4d6e23ebd005
 https://www.coursera.org/account/accomplishments/verify/4FCY7EW9LN25
+Data Visualization with Python by IBM on Coursera. Certificate earned at Friday, August 30, 2019 9:11 AM GMT
