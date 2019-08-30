@@ -400,3 +400,14 @@ sns.lineplot(x='Date', y='Close',data=nifty_Aug_2012_2013,ax=ax,label='2012_2013
 sns.lineplot(x='Date', y='Close',data=nifty_Aug_2011_2012,ax=ax,label='2011_2012')
 sns.lineplot(x='Date', y='Close',data=nifty_Aug_2010_2011,ax=ax,label='2010_2011')
 sns.lineplot(x='Date', y='Close',data=nifty_Aug_2009_2010,ax=ax,label='2009_2010')
+
+SKILLS
+The Jupyter Notebook
+Folium
+Matplotlib
+Numpy
+Python
+Seaborn
+
+https://www.youracclaim.com/badges/8cc171cc-916c-467c-9844-4d6e23ebd005
+https://www.coursera.org/account/accomplishments/verify/4FCY7EW9LN25
