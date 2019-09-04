@@ -369,3 +369,6 @@ https://towardsdatascience.com/data-101s-spatial-visualizations-and-analysis-in-
 Observations
 Most of Thai restaurants are in Cluster 2 which is around Adelaide, King, Richmond areas and lowest (close to zero) in Cluster 1 areas which are North Toronto West and Parkdale areas. Also, there are good opportunities to open near Chinatown, St James town as the competition seems to be low. Looking at nearby venues, it seems Cluster 1 might be a good location as there are not a lot of Asian restaurants in these areas. Therefore, this project recommends the entrepreneur to open an authentic Burmese restaurant in these locations with little to no competition. Nonetheless, if the food is authentic, affordable and good taste, I am confident that it will have great following everywhere =)
 
+
+
+BLOG https://medium.com/@gurubuxgill07/prospective-business-opportunities-in-mumbai-7bdc988fc976
