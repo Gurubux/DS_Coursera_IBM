@@ -2,15 +2,7 @@ Jaccard index
 F1-score
 LogLoss
 
-Eclerks
-Ubix
-Fractals
-Exponentia Data labs
-zobble
-Datamatics
-MuSigma
-Deloitte
-Flight network.com
+
 
 
 Algorithm			Jaccard	F1-score	LogLoss

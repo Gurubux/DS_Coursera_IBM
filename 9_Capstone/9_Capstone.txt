@@ -1,0 +1,371 @@
+Week 1 - Introduction to Capstone Project
+	Introduction to Capstone Project
+	Location Data Providers
+	Signing-up for a Watson Studio Account
+	Peer-review Assignment: Capstone Project Notebook
+Week 2 - Foursquare API
+	Introduction to Foursquare
+	Getting Foursquare API Credentials
+	Using Foursquare API
+	Lab: Foursquare API
+	Quiz: Foursquare API
+Week 3 - Neighborhood Segmentation and Clustering
+	Clustering
+	Lab: Clustering
+	Lab: Segmenting and Clustering Neighborhoods in New York City
+	Peer-review Assignment: Segmenting and Clustering Neighborhoods in Toronto
+Week 4 - Capstone Project
+Week 5 - Capstone Project (Cont`d)
+--------------------------------------------------------------------------------------------------------------------------------
+
+\Week 1 - Introduction to Capstone Project
+	\Introduction to Capstone Project
+	\Location Data Providers
+FourSquare, Google places and Yelp.
+Location data providers will differ in a number of features.
+	- Rate limits
+	- Cost
+	- Coverage
+	- Accuracy
+	- Update Frequency
+FourSquare API to leverage location data.
+--------------------------------------------------------------------------------------------------------------------------------
+
+	\Signing-up for a Watson Studio Account
+	\Peer-review Assignment: Capstone Project Notebook
+\Week 2 - Foursquare API
+	\Introduction to Foursquare
+	\Getting Foursquare API Credentials
+	\Using Foursquare API
+https://foursquare.com/developers/apps
+
+"RESTFul API call to Search Venue -  used to search for venues in the vicinity of a particular location. "
+GET 
+	https://api.foursquare.com/v2/venues/search?client_id=*****&client_secret=*******&v=20180602&ll=40.23,-74.15&query=coffeeShop
+RETURNS
+	JSON File with coffeeShop data
+(Many Searches allowed per day)
+
+
+"RESTFul API call to Read Tips about a venue"
+	https://api.foursquare.com/v2/venues/49asca34sdv24gerh6j7/tips?client_id=*****&client_secret=*******&v=20180602
+(ONLY 2 tips allowed per day)
+(49asca34sdv24gerh6j7 Unique Id of the Venue)
+
+"Learn about a specific User"
+	https://api.foursquare.com/v2/users/2354982/tips?client_id=*****&client_secret=*******&v=20180602
+(2354982 unique Id of the User)
+
+"Explore Venues - API"
+You are at X hotel and you decide to explore your surrounding.
+	https://api.foursquare.com/v2/venues/explore?client_id=*****&client_secret=*******&v=20180602&ll=40.23,-74.15
+
+"Explore TRENDING Venues - API"
+These are venues that have the highest foot traffic when the call to the database is made. 
+Therefore the results vary depending on when the call is made. So in the morning you might find that trending venues are coffee shops or office spaces whereas in the evening trending venues can be malls, museums or parks.
+	https://api.foursquare.com/v2/venues/trending?client_id=*****&client_secret=*******&v=20180602&ll=40.23,-74.15
+
+Using a personal (free) developer account, You can make 500 premium calls per day.
+Using a personal (free) developer account, You can actually access 1 tip and 1 photo per venue.
+You can access a venue tips and photos through premium calls.
+1 tip 1 venue call
+
+--------------------------------------------------------------------------------------------------------------------------------
+	\Lab: Foursquare API
+Library to handle requests
+import requests 
+
+Nominatim - module to convert an address into latitude and longitude values
+from geopy.geocoders import Nominatim
+
+Libraries for displaying images
+from IPython.display import Image 
+from IPython.core.display import HTML
+
+Tranforming json file into a pandas dataframe library
+from pandas.io.json import json_normalize
+
+!conda install -c conda-forge folium=0.5.0 --yes
+import folium # plotting library
+
+
+Send the GET Request and examine the results
+url = 'https://api.foursquare.com/v2/venues/search?client_id=QSOKNRAASIUJLTFPCEXHCZD0K11LEPJ1NL05S4FG33XPLWBW&client_secret=T550UGX5ZEOHGNRS3BV5D3BCJ4JFPTW40XBWREO12PDYM5GU&ll=40.7149555,-74.0153365&v=20180604&query=Italian&radius=500&limit=30'
+
+results = requests.get(url).json()
+results
+{'meta': {'code': 200, 'requestId': '5d6a4b0f6bdee6002ca4cbdf'},
+ 'response': {'venues': [{'id': '4fa862b3e4b0ebff2f749f06',
+    'name': "Harry's Italian Pizza Bar",
+    'location': {'address': '225 Murray St',
+     'lat': 40.71521779064671,
+     'lng': -74.01473940209351,
+     'labeledLatLngs': [{'label': 'display',
+       'lat': 40.71521779064671,
+       'lng': -74.01473940209351}],
+     'distance': 58,
+     'postalCode': '10282',
+     'cc': 'US',
+     'city': 'New York',
+     'state': 'NY',
+     'country': 'United States',
+     'formattedAddress': ['225 Murray St',
+      'New York, NY 10282',
+      'United States']},
+    'categories': [{'id': '4bf58dd8d48988d1ca941735',
+      'name': 'Pizza Place',
+      'pluralName': 'Pizza Places',
+      'shortName': 'Pizza',
+      'icon': {'prefix': 'https://ss3.4sqi.net/img/categories_v2/food/pizza_',
+       'suffix': '.png'},
+      'primary': True}],
+    'delivery': {'id': '294544',
+     'url': 'https://www.seamless.com/menu/harrys-italian-pizza-bar-225-murray-st-new-york/294544?affiliate=1131&utm_source=foursquare-affiliate-network&utm_medium=affiliate&utm_campaign=1131&utm_content=294544',
+     'provider': {'name': 'seamless',
+      'icon': {'prefix': 'https://fastly.4sqi.net/img/general/cap/',
+       'sizes': [40, 50],
+       'name': '/delivery_provider_seamless_20180129.png'}}},
+    'referralId': 'v-1567247119',
+    'hasPerk': False},
+   {'id': '4f3232e219836c91c7bfde94',
+    'name': 'Conca Cucina Italian Restaurant',
+    'location': {'address': '63 W Broadway',
+     'lat': 40.71446,
+     'lng': -74.010086,
+     'labeledLatLngs': [{'label': 'display',
+       'lat': 40.71446,
+       'lng': -74.010086}],
+     'distance': 446,
+     'postalCode': '10007',
+     'cc': 'US',
+     'city': 'New York',
+     'state': 'NY',
+     'country': 'United States',
+     'formattedAddress': ['63 W Broadway',
+      'New York, NY 10007',
+      'United States']},
+    'categories': [{'id': '4d4b7105d754a06374d81259',
+      'name': 'Food',
+      'pluralName': 'Food',
+      'shortName': 'Food',
+      'icon': {'prefix': 'https://ss3.4sqi.net/img/categories_v2/food/default_',
+       'suffix': '.png'},
+      'primary': True}],
+    'referralId': 'v-1567247119',
+    'hasPerk': False},
+   {'id': '3fd66200f964a520f4e41ee3',
+    'name': 'Ecco',
+    'location': {'address': '124 Chambers St',
+     'crossStreet': 'btwn Church St & W Broadway',
+     'lat': 40.71533713859952,
+     'lng': -74.00884766217825,
+     'labeledLatLngs': [{'label': 'display',
+       'lat': 40.71533713859952,
+       'lng': -74.00884766217825}],
+     'distance': 549,
+     'postalCode': '10007',
+     'cc': 'US',
+     'city': 'New York',
+     'state': 'NY',
+     'country': 'United States',
+     'formattedAddress': ['124 Chambers St (btwn Church St & W Broadway)',
+      'New York, NY 10007',
+      'United States']},
+    'categories': [{'id': '4bf58dd8d48988d110941735',
+      'name': 'Italian Restaurant',
+      'pluralName': 'Italian Restaurants',
+      'shortName': 'Italian',
+      'icon': {'prefix': 'https://ss3.4sqi.net/img/categories_v2/food/italian_',
+       'suffix': '.png'},
+      'primary': True}],
+    'referralId': 'v-1567247119',
+    'hasPerk': False}]}
+}
+
+Get relevant part of JSON and transform it into a pandas dataframe
+# assign relevant part of JSON to venues
+venues = results['response']['venues']
+
+# tranform venues into a dataframe
+dataframe = json_normalize(venues)
+dataframe.head()
+
+
+
+
+
+
+
+
+
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------
+
+	\Quiz: Foursquare API
+
+--------------------------------------------------------------------------------------------------------------------------------
+\Week 3 - Neighborhood Segmentation and Clustering
+	- In this module, you will learn about k-means clustering, which is a form of unsupervised learning. 
+	- Then you will use clustering and the Foursquare API to segment and cluster the neighborhoods in the city of New York. 
+	- Furthermore, you will learn how to scrape website and parse HTML code using the Python package Beautifulsoup, and convert data into a pandas dataframe.
+Learn about clustering and k-means clustering in particular.
+Learn how to use the Foursquare API and clustering to segment and cluster the neighborhoods in New York City.
+Learn how to use the Beautifulsoup Python package to scrape websites and parse HTML code.
+Apply the skills acquired so far in this course to segment and cluster neighborhoods in the city of Toronto.
+	\Clustering
+	--------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------
+	\Lab: Clustering
+1. k-means on a Randomly Generated Dataset
+2. Using k for Customer Segmentation
+
+from sklearn.cluster import KMeans 
+from sklearn.datasets.samples_generator import make_blobs
+
+
+1. K-MEANS ON A RANDOMLY GENERATED DATASET
+
+
+
+--------------------------------------------------------------------------------------------------------------------------------
+	\Lab: Segmenting and Clustering Neighborhoods in New York City
+
+
+--------------------------------------------------------------------------------------------------------------------------------
+	\Peer-review Assignment: Segmenting and Clustering Neighborhoods in Toronto
+"EXPLORE, SEGMENT, AND CLUSTER THE NEIGHBORHOODS"
+"SCRAPE THE WIKIPEDIA PAGE AND WRANGLE THE DATA, CLEAN IT, AND THEN READ IT INTO A PANDAS DATAFRAME"
+
+For this assignment, you will be required to explore and cluster the neighborhoods in Toronto.
+	1. Start by creating a new Notebook for this assignment.
+	2. Use the Notebook to build the code to scrape the following Wikipedia page, https://en.wikipedia.org/wiki/List_of_postal_codes_of_Canada:_M, in order to obtain the data that is in the table of postal codes and to transform the data into a pandas dataframe like the one shown below:
+
+	3. To create the above dataframe:
+		The dataframe will consist of three columns: PostalCode, Borough, and Neighborhood
+		Only process the cells that have an assigned borough. Ignore cells with a borough that is Not assigned.
+		More than one neighborhood can exist in one postal code area. For example, in the table on the Wikipedia page, you will notice that M5A is listed twice and has two neighborhoods: Harbourfront and Regent Park. These two rows will be combined into one row with the neighborhoods separated with a comma as shown in row 11 in the above table.
+		If a cell has a borough but a Not assigned neighborhood, then the neighborhood will be the same as the borough. So for the 9th cell in the table on the Wikipedia page, the value of the Borough and the Neighborhood columns will be Queen's Park.
+		Clean your Notebook and add Markdown cells to explain your work and any assumptions you are making.
+		In the last cell of your notebook, use the .shape method to print the number of rows of your dataframe.
+4. Submit a link to your Notebook on your Github repository. (10 marks)
+	Note: There are different website scraping libraries and packages in Python. For scraping the above table, you can simply use pandas to read the table into a pandas dataframe.
+	Another way, which would help to learn for more complicated cases of web scraping is using the BeautifulSoup package. Here is the package's main documentation page: http://beautiful-soup-4.readthedocs.io/en/latest/
+	The package is so popular that there is a plethora of tutorials and examples on how to use it. Here is a very good Youtube video on how to use the BeautifulSoup package: https://www.youtube.com/watch?v=ng2o98k983k
+	Use pandas, or the BeautifulSoup package, or any other way you are comfortable with to transform the data in the table on the Wikipedia page into the above pandas dataframe.
+
+@Beautiful Soup Python package
+@Geocoder Python package
+
+
+--------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------	
+\Week 4 - Capstone Project
+--------------------------------------------------------------------------------------------------------------------------------
+Bandra Kurla Complex,Bandstand Promenade,Gandhi Nagar,Kherwadi,Lands End,Pali Hill,Bandra Reclamation
+
+Borivali West
+I.C. Colony,L.I.C. Colony aka Jeevan Bhima Nagar,Eksar Colony,Shimpoli,Gorai,Kora Kendra,Vazira Naka,Babhai,Chikuwadi,Yogi Nagar
+Borivali East,
+Aarey Milk Colony,Motilal Nagar,Bangur Nagar,Gokuldham,Pandurangwadi,NESCO colony
+Jogeshwari West,Jogeshwari East
+
+Charkop,Poisar,Hindustan Naka,Mahavir Nagar
+
+Naigaon,Nalasopara
+Dindoshi,Sunder Nagar,Pathanwadi,Rani Sati Marg,Malvani
+Samta nagar,Damu nagar,Thakur complex,Thakur village,Lokandwala township,Akurli road,Janupada,Hanuman nagar
+Pali Naka,Khar Danda
+
+Andheri
+Bandra
+Borivali
+Borivali East
+Dahisar
+Goregaon
+Jogeshwari
+Juhu
+Kandivali west
+Kandivali east
+Khar
+Malad
+Santacruz
+Vasai
+Virar
+Vile Parle
+
+South Mumbai
+Agripada
+Altamount Road
+Bhuleshwar
+Breach Candy
+Carmichael Road
+Cavel
+Churchgate
+Cotton Green
+Cuffe Parade
+Cumbala Hill
+Currey Road
+Dhobitalao
+Dongri
+Kala Ghoda
+Kemps Corner
+Lalbaug
+Lower Parel
+Mahalaxmi
+Mahim
+Malabar Hill
+Marine Drive, Mumbai
+Marine Lines
+Mumbai Central
+Nariman Point
+Prabhadevi
+Sion
+Walkeshwar
+Worli
+Antop Hill
+	C.G.S. colony
+Byculla
+	Dagdi Chawl,Ghodapdeo
+Colaba
+	Navy Nagar
+Dadar
+	Hindu colony,Parsi Colony
+Fort
+	Ballard Estate
+Girgaon
+	Khotachiwadi
+Kalbadevi
+	Chira Bazaar,Fanas Wadi
+
+https://www.latlong.net/convert-address-to-lat-long.html
+https://en.wikipedia.org/wiki/List_of_neighbourhoods_in_Mumbai
+
+CLIENT_ID = 'QSOKNRAASIUJLTFPCEXHCZD0K11LEPJ1NL05S4FG33XPLWBW' # your Foursquare ID 
+CLIENT_SECRET = 'T550UGX5ZEOHGNRS3BV5D3BCJ4JFPTW40XBWREO12PDYM5GU' # your Foursquare Secret
+VERSION = '20180604'
+LIMIT = 30
+print('Your credentails:')
+print('CLIENT_ID: ' + CLIENT_ID)
+print('CLIENT_SECRET:' + CLIENT_SECRET)
+
+Hospital - Gift Shop/Fruit Stall
+--------------------------------------------------------------------------------------------------------------------------------
+\Week 5 - Capstone Project (Cont'd)
+--------------------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------------------
+https://towardsdatascience.com/exploring-the-tokyo-neighborhoods-data-science-in-real-life-8b6c2454ca16
+
+https://medium.com/@newmint02/foursquare-api-lab-4f73f6a7f0d3
+
+https://towardsdatascience.com/exploring-chandigarh-india-using-foursquare-and-zomato-api-1d4501291320
+
+https://medium.com/@kunal_chhabra/coursera-capstone-project-the-battle-of-neighbourhoods-7a4aa3e70086
+
+http://www.zinkohlaing.com/data-science/using-machine-learning-to-find-locations-to-open-a-burmese-restaurant-in-toronto-ibm-capstone-project/
+
+https://towardsdatascience.com/data-101s-spatial-visualizations-and-analysis-in-python-with-folium-39730da2adf
+Observations
+Most of Thai restaurants are in Cluster 2 which is around Adelaide, King, Richmond areas and lowest (close to zero) in Cluster 1 areas which are North Toronto West and Parkdale areas. Also, there are good opportunities to open near Chinatown, St James town as the competition seems to be low. Looking at nearby venues, it seems Cluster 1 might be a good location as there are not a lot of Asian restaurants in these areas. Therefore, this project recommends the entrepreneur to open an authentic Burmese restaurant in these locations with little to no competition. Nonetheless, if the food is authentic, affordable and good taste, I am confident that it will have great following everywhere =)
+
